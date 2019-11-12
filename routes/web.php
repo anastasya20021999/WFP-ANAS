@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+//untuk registrasi
 Route::post('/regis', 'Auth\RegisterController@store');
 Route::resource('saldos','SaldoController');
 Route::resource('masters','MasterController');
