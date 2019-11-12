@@ -33,6 +33,23 @@ class TransaksiController extends Controller
             //hasil kategori nama var yang akan dikenal di view
         ]);
     }
+    public function laporan()
+    {
+         //$username=$request->get('username');
+
+        $dataSaldo=Saldo::where('user_id',Auth::user()->id)->get();
+        $dataMaster=Master::where('user_id',Auth::user()->id)->get();
+        $dataTransaksi=Transaksi::where('user_id',Auth::user()->id)->get();
+        //$nama=Kategori::where('nama','like','M%')->get();
+        return view('transaksi.index', [
+            'hasilTransaksi'=>$dataTransaksi,
+            'hasilMaster'=>$dataMaster,
+            'hasilSaldo'=>$dataSaldo,
+           // 'username'=>$username, 
+            'user_id'=>Auth::user()->id
+            //hasil kategori nama var yang akan dikenal di view
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
