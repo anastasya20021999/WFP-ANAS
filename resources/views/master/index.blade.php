@@ -160,13 +160,14 @@
                         style="font-family: cursive;color: pink;">[Hapus]</a>
 				</form></td>
 				</tr>
-				@endforeach
-                @foreach
+                 @foreach
                 ($master->submasters as $master)
         <tr>
             <td colspan="3">{{$master->nama}}</td>
         </tr>
                 @endforeach
+				@endforeach
+               
 				</table>
                 </center>
                 </div>
