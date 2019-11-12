@@ -6,6 +6,7 @@ use App\Master;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class MasterController extends Controller
 {
     /**
@@ -16,12 +17,15 @@ class MasterController extends Controller
     public function index()
     {
 
-        //$dataMaster=Master::all();
-        $dataMaster=Master::where('user_id',Auth::user()->id)->get();
+        $dataMaster=Master::all();
+        $dataMaster=Master::where('user_id', Auth::user()->id)->get();
         return view('master.index', [
             'hasilMaster'=>$dataMaster,
             'user_id'=>Auth::user()->id
         ]);
+
+
+        // return view('master.index');
     }
 
     /**
