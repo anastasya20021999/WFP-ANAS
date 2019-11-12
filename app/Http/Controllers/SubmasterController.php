@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Submaster;
+use App\Master;
 use Illuminate\Http\Request;
 
 class SubmasterController extends Controller
