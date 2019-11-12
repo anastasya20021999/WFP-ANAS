@@ -20,6 +20,7 @@ Auth::routes();
 Route::post('/regis', 'Auth\RegisterController@store');
 Route::resource('saldos','SaldoController');
 Route::resource('masters','MasterController');
+//halo
 Route::resource('transaksis','TransaksiController');
 
 Route::get('/home', 'HomeController@index')->name('home');
