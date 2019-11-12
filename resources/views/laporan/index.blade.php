@@ -49,18 +49,18 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                    	<li><a href="{{url('/')}}">home</a></li></li>
+                                        <li><a href="{{url('/')}}">home</a></li></li>
                                         @if (Auth::user()) 
                                         <li><a href="{{ url('saldos') }}">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
-                                        <li><a href="{{ url('transaksis') }}" class="active">Transaksi</a></li>
+                                        <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
                                         <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
                                                 <li><a href="{{asset('bootstrap/blog.html')}}">blog</a></li>
                                                 <li><a href="{{asset('bootstrap/single-blog.html')}}">single-blog</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="{{ url('laporan') }}">Laporan</a></li>
+                                        <li><a href="{{ url('laporan') }}" class="active" >Laporan</a></li>
                                         @endif
                                     </ul>
                                 </nav>
@@ -120,58 +120,80 @@
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
             <div class="container">
                 <div class="row align-items-center justify-content-center">
-				<h1> 
-					Laporan Transaksi
-				</h1>
-				<br>
-				@if (session('pesan'))
-				<div style="background-color: green; color: white;
-					font-weight: bold;">
-					{{session('pesan')}}
-				</div>
-				@endif
-				@if(count($hasilTransaksi)>0)
-				<table border="1">
-					<tr>
-						<th>No</th>
-						<th>Jumlah</th>
-						<th>Keterangan</th>
-						<th>Saldo</th>
-						<th>Jenis Trasaksi</th>
-						<th>Nama Transaksi</th>
-						<th>Gambar</th>
-					</tr>
-					
-						@foreach ($hasilTransaksi as $no=>$transaksi)
-						<tr>
-							<td>{{ $no+1 }}</td>
-							<td>{{ $transaksi->jumlah }}</td>
-							<td>{{ $transaksi->keterangan }}</td>
-							@foreach($hasilSaldo as $saldo)
-								@if($transaksi->saldo_id==$saldo->id)
-								<td>{{$saldo->nama}}</td>
-								<!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
-								@endif
-							@endforeach
-							@foreach($hasilMaster as $master)
-								@if($transaksi->master_id==$master->id)
-								<td>{{$master->jenis}}</td>
-								<td>{{$master->nama}}</td>
-								<!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
-								@endif
-							@endforeach
-									<td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
-							
-							</td>
-						</tr>
-						@endforeach
-					@else
-						</table>
-						Transaksimu belum ada tambah transaksi yuk!
-					@endif	
-				</table>
-				<h2>Tambah transaksimu?
-					<a href="{{ route('transaksis.create')}}">Tambah</a>
+                <h1> 
+                    Semua Laporan Transaksi
+                </h1>
+                <form method="post" action="{{url('tampil')}}">
+                <!--ini kategoris method post kategoris.store liat di php artisan route:list
+                    liat dia ke fungsi mana disana-->
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                <h3 style = "color: white">
+                    Lihat laporan berdasarkan waktu
+                <table>
+                
+                <tr>
+                    <td>Tanggal awal: </td>
+                    <td><input type="date" name="tanggal_awal"></td>
+                </tr>
+                <tr>
+                    <td>Tanggal akhir: </td>
+                    <td><input type="date" name="tanggal_akhir"></td>
+                </tr>
+                
+            </table>
+            <h3 style = "text-align:center">
+                <input type="submit" name="cari" value="Cari"/>
+                <br>
+            </h3>
+            
+            </form>
+                <br>
+                @if (session('pesan'))
+                <div style="background-color: green; color: white;
+                    font-weight: bold;">
+                    {{session('pesan')}}
+                </div>
+                @endif
+                @if(count($hasilTransaksi)>0)
+                <table border="1">
+                    <tr>
+                        <th>No</th>
+                        <th>Jumlah</th>
+                        <th>Keterangan</th>
+                        <th>Saldo</th>
+                        <th>Jenis Trasaksi</th>
+                        <th>Nama Transaksi</th>
+                        <th>Gambar</th>
+                    </tr>
+                    
+                        @foreach ($hasilTransaksi as $no=>$transaksi)
+                        <tr>
+                            <td>{{ $no+1 }}</td>
+                            <td>{{ $transaksi->jumlah }}</td>
+                            <td>{{ $transaksi->keterangan }}</td>
+                            @foreach($hasilSaldo as $saldo)
+                                @if($transaksi->saldo_id==$saldo->id)
+                                <td>{{$saldo->nama}}</td>
+                                <!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
+                                @endif
+                            @endforeach
+                            @foreach($hasilMaster as $master)
+                                @if($transaksi->master_id==$master->id)
+                                <td>{{$master->jenis}}</td>
+                                <td>{{$master->nama}}</td>
+                                <!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
+                                @endif
+                            @endforeach
+                                    <td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
+                            
+                            </td>
+                        </tr>
+                        @endforeach
+                    @else
+                        </table>
+                        Transaksimu belum ada tambah transaksi yuk!
+                    @endif  
+                </table>
                 </div>
             </div>
         </div>

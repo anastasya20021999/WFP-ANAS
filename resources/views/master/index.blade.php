@@ -60,7 +60,7 @@
                                                 <li><a href="{{asset('bootstrap/single-blog.html')}}">single-blog</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="{{asset('bootstrap/contact.html')}}">Contact</a></li>
+                                        <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
                                     </ul>
                                 </nav>
@@ -160,12 +160,7 @@
                         style="font-family: cursive;color: pink;">[Hapus]</a>
 				</form></td>
 				</tr>
-                @foreach($hasilMaster->submasters as $submaster)
-                <tr>
-                     <td colspan="3">{{$submaster->nama}}</td>
-                    <!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
-                </tr>
-                @endforeach
+
 				@endforeach
                
 				</table>
