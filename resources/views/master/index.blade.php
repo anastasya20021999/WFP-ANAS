@@ -160,12 +160,12 @@
                         style="font-family: cursive;color: pink;">[Hapus]</a>
 				</form></td>
 				</tr>
-                <!--  @foreach
-                ($master->submasters as $submaster)
-        <tr>
-            <td colspan="3">{{$submaster->nama}}</td>
-        </tr>
-                @endforeach -->
+                @foreach($hasilMaster->submasters as $submaster)
+                <tr>
+                     <td colspan="3">{{$submaster->nama}}</td>
+                    <!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
+                </tr>
+                @endforeach
 				@endforeach
                
 				</table>
