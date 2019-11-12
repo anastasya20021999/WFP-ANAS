@@ -26,3 +26,4 @@ Route::resource('transaksis','TransaksiController');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/laporan', 'TransaksiController@laporan');
+Route::post('/tampil', 'TransaksiController@tampil');

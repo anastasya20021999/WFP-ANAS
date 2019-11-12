@@ -50,6 +50,10 @@ class TransaksiController extends Controller
             //hasil kategori nama var yang akan dikenal di view
         ]);
     }
+     public function tampil(Request $request)
+    {
+        
+    }
 
     /**
      * Show the form for creating a new resource.

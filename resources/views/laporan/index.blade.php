@@ -123,6 +123,30 @@
                 <h1> 
                     Semua Laporan Transaksi
                 </h1>
+                <form method="post" action="{{url('tampil')}}">
+                <!--ini kategoris method post kategoris.store liat di php artisan route:list
+                    liat dia ke fungsi mana disana-->
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                <h3 style = "color: white">
+                    Lihat laporan berdasarkan waktu
+                <table>
+                
+                <tr>
+                    <td>Tanggal awal: </td>
+                    <td><input type="date" name="tanggal_awal"></td>
+                </tr>
+                <tr>
+                    <td>Tanggal akhir: </td>
+                    <td><input type="date" name="tanggal_akhir"></td>
+                </tr>
+                
+            </table>
+            <h3 style = "text-align:center">
+                <input type="submit" name="cari" value="Cari"/>
+                <br>
+            </h3>
+            
+            </form>
                 <br>
                 @if (session('pesan'))
                 <div style="background-color: green; color: white;
