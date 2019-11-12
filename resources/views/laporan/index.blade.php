@@ -120,6 +120,7 @@
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
             <div class="container">
                 <div class="row align-items-center justify-content-center">
+                    <div class="container">
                 <h1> 
                     Semua Laporan Transaksi
                 </h1>
@@ -164,6 +165,7 @@
                         <th>Jenis Trasaksi</th>
                         <th>Nama Transaksi</th>
                         <th>Gambar</th>
+                        <th>Tanggal Create</th>
                     </tr>
                     
                         @foreach ($hasilTransaksi as $no=>$transaksi)
@@ -185,8 +187,8 @@
                                 @endif
                             @endforeach
                                     <td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
-                            
-                            </td>
+                            <td>{{ strftime('%Y-%m-%d',
+                                     strtotime($transaksi->created_at)) }}</td>
                         </tr>
                         @endforeach
                     @else
@@ -194,6 +196,8 @@
                         Transaksimu belum ada tambah transaksi yuk!
                     @endif  
                 </table>
+                </h3>
+            </div>
                 </div>
             </div>
         </div>
