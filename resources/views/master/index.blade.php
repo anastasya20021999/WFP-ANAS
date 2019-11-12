@@ -161,9 +161,9 @@
 				</form></td>
 				</tr>
                  @foreach
-                ($master->submasters as $master)
+                ($master->submasters as $submaster)
         <tr>
-            <td colspan="3">{{$master->nama}}</td>
+            <td colspan="3">{{$submaster->nama}}</td>
         </tr>
                 @endforeach
 				@endforeach
