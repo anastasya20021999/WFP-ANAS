@@ -121,7 +121,7 @@
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                 <h1> 
-                    Laporan Transaksi
+                    Semua Laporan Transaksi
                 </h1>
                 <br>
                 @if (session('pesan'))
@@ -170,8 +170,6 @@
                         Transaksimu belum ada tambah transaksi yuk!
                     @endif  
                 </table>
-                <h2>Tambah transaksimu?
-                    <a href="{{ route('transaksis.create')}}">Tambah</a>
                 </div>
             </div>
         </div>

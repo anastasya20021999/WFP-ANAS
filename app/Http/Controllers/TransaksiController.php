@@ -41,7 +41,7 @@ class TransaksiController extends Controller
         $dataMaster=Master::where('user_id',Auth::user()->id)->get();
         $dataTransaksi=Transaksi::where('user_id',Auth::user()->id)->get();
         //$nama=Kategori::where('nama','like','M%')->get();
-        return view('transaksi.index', [
+        return view('laporan.index', [
             'hasilTransaksi'=>$dataTransaksi,
             'hasilMaster'=>$dataMaster,
             'hasilSaldo'=>$dataSaldo,
