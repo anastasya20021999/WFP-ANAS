@@ -160,13 +160,7 @@
 								<!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
 								@endif
 							@endforeach
-							<td>
-								@foreach($transaksi as $t)
-								<tr>
-									<td><img width="150px" src="{{url('/data_file/'.$t->nama_gambar)}}"></td>
-								</tr>
-								@endforeach
-							</td>
+									<td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
 							
 							</td>
 						</tr>
