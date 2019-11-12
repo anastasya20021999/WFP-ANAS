@@ -13,7 +13,10 @@ class SubmasterController extends Controller
      */
     public function index()
     {
-        //
+        $dataSubmaster=Submaster::all();
+        return view('master.index', [
+            'hasilsub'=>$hasilsubmas
+        ]);
     }
 
     /**

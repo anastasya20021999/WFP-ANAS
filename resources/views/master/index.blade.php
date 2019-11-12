@@ -161,6 +161,12 @@
 				</form></td>
 				</tr>
 				@endforeach
+                @foreach
+                ($master->submasters as $master)
+        <tr>
+            <td colspan="3">{{$master->nama}}</td>
+        </tr>
+                @endforeach
 				</table>
                 </center>
                 </div>
