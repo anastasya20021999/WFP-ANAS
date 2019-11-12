@@ -60,7 +60,7 @@
                                                 <li><a href="{{asset('bootstrap/single-blog.html')}}">single-blog</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="{{asset('bootstrap/contact.html')}}">Contact</a></li>
+                                        <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
                                     </ul>
                                 </nav>
