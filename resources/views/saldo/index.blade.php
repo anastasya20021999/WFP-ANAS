@@ -148,7 +148,6 @@
 						<th>No</th>
 						<th>Nama</th>
 						<th>Nominal</th>
-						<th>Aksi</th>
 					</tr>
 					
 						@foreach ($hasilSaldo as $no=>$saldo)

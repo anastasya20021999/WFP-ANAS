@@ -134,8 +134,8 @@
     <tr>
       <td><font face="Monospace" color="white" ><strong style="font-size: 17px;">Jenis &nbsp;&nbsp;</strong></font></td>
       <td><select name="jenis_master"> 
-        <option value="pemasukkan">Pemasukkan</option>
-        <option value="pengeluaran">Pengeluaran</option>
+        <option value="Pemasukkan">Pemasukkan</option>
+        <option value="Pengeluaran">Pengeluaran</option>
       </select></td>
      <!--  <td><input type="text" name="jenis_master"></td> -->
     </tr>
