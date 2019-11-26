@@ -33,6 +33,43 @@ class TransaksiController extends Controller
             //hasil kategori nama var yang akan dikenal di view
         ]);
     }
+    public function laporan()
+    {
+         //$username=$request->get('username');
+
+        $dataSaldo=Saldo::where('user_id',Auth::user()->id)->get();
+        $dataMaster=Master::where('user_id',Auth::user()->id)->get();
+        $dataTransaksi=Transaksi::where('user_id',Auth::user()->id)->get();
+        //$nama=Kategori::where('nama','like','M%')->get();
+        return view('laporan.index', [
+            'hasilTransaksi'=>$dataTransaksi,
+            'hasilMaster'=>$dataMaster,
+            'hasilSaldo'=>$dataSaldo,
+           // 'username'=>$username, 
+            'user_id'=>Auth::user()->id
+            //hasil kategori nama var yang akan dikenal di view
+        ]);
+    }
+     public function tampil(Request $request)
+    {
+        $tanggalAwal=$request->get('tanggal_awal');
+        $tanggalAkhir=$request->get('tanggal_akhir');
+
+        $dataTransaksi=Transaksi::where('user_id',Auth::user()->id)
+            ->whereBetween('created_at', [$tanggalAwal, $tanggalAkhir])
+            ->get();
+            $dataSaldo=Saldo::where('user_id',Auth::user()->id)->get();
+        $dataMaster=Master::where('user_id',Auth::user()->id)->get();
+
+        return view('laporan.tampil', [
+            'hasilTransaksi'=>$dataTransaksi,
+            'hasilMaster'=>$dataMaster,
+            'hasilSaldo'=>$dataSaldo,
+           // 'username'=>$username, 
+            'user_id'=>Auth::user()->id
+            //hasil kategori nama var yang akan dikenal di view
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Submaster;
-use App\Master;
+//use App\Submaster;
+//use App\Master;
 use Illuminate\Http\Request;
 
 class SubmasterController extends Controller
@@ -15,10 +15,10 @@ class SubmasterController extends Controller
      */
     public function index()
     {
-        $dataSubmaster=Submaster::all();
-        return view('master.index', [
-            'hasilsub'=>$hasilsubmas
-        ]);
+        // $dataSubmaster=Submaster::all();
+        // return view('master.index', [
+        //     'hasilsub'=>$hasilsubmas
+        // ]);
     }
 
     /**
