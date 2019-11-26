@@ -49,11 +49,11 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a class="active" href="{{url('/')}}">home</a></li>
-                                        @if(Auth::user()) 
-                                        <li><a href="{{ url('saldos') }}">Saldo</a></li>
+                                        <li><a href="{{url('/')}}">home</a></li></li>
+                                        @if (Auth::user()) 
+                                            <li><a href="{{ url('saldos') }}">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
-                                        <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
+                                        <li><a href="{{ url('transaksis') }}" class="active">Transaksi</a></li>
                                         <li><a href="{{ url('tabungans') }}">Tabungan</a></li>
                                         <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
@@ -72,7 +72,7 @@
                                 </a>
                                 @else
                                 <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white;">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"style="color: white;">
                                     {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>
 
@@ -114,20 +114,33 @@
     <div class="slider_area ">
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
             <div class="container">
+
                 <div class="row align-items-center justify-content-center">
-                    <div class="col-xl-6 col-md-6">
-                        <div class="illastrator_png">
-                            <img src="{{asset('bootstrap/img/banner/logohome.png')}}" alt="">
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-md-6">
-                        <div class="slider_info">
-                            <h3>Manage Your <br>
-                                Own Money <br>
-                                With Cuan Lover</h3>
-                            <a href="#" class="boxed_btn">Browse Our Courses</a>
-                        </div>
-                    </div>
+						              
+					<head></head>
+					<body>
+						<table border="1">
+						<h1>Tambah Tabungan baru</h1>
+                    <div class="container">
+                      <center>
+                    <form method="post" action="{{url('tabungans')}}">
+                      <table>
+                        <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                        <input type="hidden" name="user" value="{{Auth::user()->id}}"/>
+                        <tr>
+                          <td><font face="Monospace" color="white"><strong style="font-size: 17px;">Nama &nbsp;&nbsp;</strong></font></td> 
+                          <td><input type="text" name="nama" ></td>
+                        </tr>
+                        <tr>
+                          <td><font face="Monospace" color="white"><strong style="font-size: 17px;">Target &nbsp;&nbsp;</strong></font></td> 
+                          <td><input type="text" name="target" ></td>
+                        </tr>
+                        <tr>
+                           <td><input type="submit" name="Simpan" value="Simpan"/></td>
+                        </tr>
+						</div>
+						</table>
+					</body>
                 </div>
             </div>
         </div>

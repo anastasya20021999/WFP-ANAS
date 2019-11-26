@@ -49,12 +49,12 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a class="active" href="{{url('/')}}">home</a></li>
-                                        @if(Auth::user()) 
-                                        <li><a href="{{ url('saldos') }}">Saldo</a></li>
+                                        <li><a href="{{url('/')}}">home</a></li></li>
+                                        @if (Auth::user()) 
+                                            <li><a href="{{ url('saldos') }}">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
-                                        <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
-                                        <li><a href="{{ url('tabungans') }}">Tabungan</a></li>
+                                        <li><a href="{{ url('transaksis') }}" >Transaksi</a></li>
+                                        <li><a href="{{ url('tabungans') }}"class="active">Tabungan</a></li>
                                         <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
                                     </ul>
@@ -72,7 +72,7 @@
                                 </a>
                                 @else
                                 <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: white;">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"style="color: white;">
                                     {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>
 
@@ -114,20 +114,45 @@
     <div class="slider_area ">
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
             <div class="container">
+
                 <div class="row align-items-center justify-content-center">
-                    <div class="col-xl-6 col-md-6">
-                        <div class="illastrator_png">
-                            <img src="{{asset('bootstrap/img/banner/logohome.png')}}" alt="">
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-md-6">
-                        <div class="slider_info">
-                            <h3>Manage Your <br>
-                                Own Money <br>
-                                With Cuan Lover</h3>
-                            <a href="#" class="boxed_btn">Browse Our Courses</a>
-                        </div>
-                    </div>
+						              
+					<head></head>
+					<body>
+						<table border="1">
+							<tr>
+								<th>No</th>
+								<th>Nama</th>
+								<th>Nominal</th>
+								<th>Target</th>
+								<th>Status</th>
+							</tr>
+							@foreach($tabungans as $key => $tab)
+							<tr>
+								<td>
+									{{$key+1}}
+								<td>
+
+									{{$tab->nama}}
+								</td>
+								<td>{{$tab->nominal}}</td>
+								<td>{{$tab->target}}</td>
+								<td>
+									@if($tab->status==1)
+										Tercapai
+									@else
+										Belum
+									@endif
+								</td>
+							</tr>
+							@endforeach
+							<br>
+							<h2>Ingin beli sesuatu? Nabung mangkanya sini tambah tabungan
+								<br>
+								<a href="{{ route('tabungans.create')}}">Tambah</a>
+							</h2>
+						</table>
+					</body>
                 </div>
             </div>
         </div>

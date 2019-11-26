@@ -22,6 +22,7 @@ Route::resource('saldos','SaldoController');
 Route::resource('masters','MasterController');
 //halo
 Route::resource('transaksis','TransaksiController');
+Route::resource('tabungans','TabunganController');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

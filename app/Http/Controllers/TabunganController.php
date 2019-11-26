@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Tabungan;
+use Illuminate\Support\Facades\Auth;
 
 class TabunganController extends Controller
 {
@@ -13,7 +15,9 @@ class TabunganController extends Controller
      */
     public function index()
     {
-        //
+        $tabungans=Tabungan::retrieve(Auth::user()->id);
+        return view('tabungan.index',[
+        'tabungans'=>$tabungans]);
     }
 
     /**
@@ -23,7 +27,7 @@ class TabunganController extends Controller
      */
     public function create()
     {
-        //
+        return view('tabungan.create');
     }
 
     /**
@@ -34,7 +38,13 @@ class TabunganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+         'nama'=>'required',
+           'target'=>'required'
+        ]);
+
+        Tabungan::input($request->get('nama'),0,$request->get('target'), Auth::user()->id);
+        return redirect()->route('tabungan.index')->with('pesan','selamat berhasil input tabungan '.$request->get('nama')); 
     }
 
     /**
