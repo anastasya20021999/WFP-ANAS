@@ -44,7 +44,7 @@ class TabunganController extends Controller
         ]);
 
         Tabungan::input($request->get('nama'),0,$request->get('target'), Auth::user()->id);
-        return redirect()->route('tabungan.index')->with('pesan','selamat berhasil input tabungan '.$request->get('nama')); 
+        return redirect()->route('tabungans.index')->with('pesan','selamat berhasil input tabungan '.$request->get('nama')); 
     }
 
     /**
@@ -66,7 +66,8 @@ class TabunganController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tabungan = Tabungan::find($id);
+        return view('tabungan.edit',['tabungan'=>$tabungan]);
     }
 
     /**
@@ -78,7 +79,14 @@ class TabunganController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+         'nama'=>'required',
+           'target'=>'required'
+        ]);
+
+        $hasil=Tabungan::update($request->get('nama'),0,$request->get('target'), Auth::user()->id);
+        
+        return redirect()->route('tabungans.index')->with('pesan',$hasil); 
     }
 
     /**
