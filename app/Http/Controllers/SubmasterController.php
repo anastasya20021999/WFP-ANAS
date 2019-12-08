@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 //use App\Submaster;
 //use App\Master;
 use Illuminate\Http\Request;
+use DB;
+use App\Master;
+use App\Submaster;
 
 class SubmasterController extends Controller
 {
@@ -19,6 +22,7 @@ class SubmasterController extends Controller
         // return view('master.index', [
         //     'hasilsub'=>$hasilsubmas
         // ]);
+
     }
 
     /**
@@ -28,7 +32,11 @@ class SubmasterController extends Controller
      */
     public function create()
     {
-        //
+       $duar = DB::table('masters')
+                ->select('*')
+                ->get();
+        
+        return view('submaster/tambah',compact('duar'));
     }
 
     /**
@@ -39,7 +47,17 @@ class SubmasterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nama = $request->get('nama_submaster');
+        $jenis_pembayaran = $request->get('jenis_pembayaran');
+        $master_id = $request->get('select_master');
+
+        $tambahsub = Submaster::insert([
+            'nama' => $nama,
+            'pembayaran' => $jenis_pembayaran,
+            'master_id' => $master_id
+        ]);
+
+        return redirect()->back();
     }
 
     /**
