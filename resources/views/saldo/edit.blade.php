@@ -51,7 +51,7 @@
                                     <ul id="navigation">
                                         <li><a href="{{url('/')}}">home</a></li></li>
                                         @if (Auth::user()) 
-                                        <li><a href="{{ url('saldos') }}" class="active">Saldo</a></li>
+                                            <li><a href="{{ url('saldos') }}" class="active">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
                                         <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
                                         <li><a href="#">blog <i class="ti-angle-down"></i></a>
@@ -118,59 +118,45 @@
     <!-- slider_area_start -->
     <div class="slider_area ">
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
-            <div class = "container2">
-               
-                <div style = "margin : 10px 50px;  text-align:center;">
-				<h1 style="color:white;"> 
-					Daftar Saldo
-				</h1>
-                <h2 style="color:white;">Tambah saldomu?</h2>
-					<h2 style="color:white;"><a href="{{ route('saldos.create') }}">[Tambah]</a></h2>
-                </div>
-                <div style = color:white>
-                    <div class="row align-items justify-content-center">  
-            </div>
-            
             <div class="container">
+              <h1 style = "text-align: center;">Ubah Master</h1>
+                <div class="row align-items-center justify-content-center">
+  
+@foreach ($errors->all() as $error)
+  <div style="background-color: red; font-weight: bold;color: white;"><h4>{{ $error }}</h4></div>
+@endforeach
+@if (session('status'))
+  <div>
+    {{ session('status') }}
+  </div>
+@endif
 
-				@if (session('pesan'))
-				<div style="color: white;
-					font-weight: bold; text-align:center;">
-					{{session('pesan')}}
-                    
+<br>
+<div style="margin: center;">
+    <div class="container" >
+  
+    <form action="{{ route('saldos.update', $saldo->id) }}" method="POST">
+        {{ method_field("PUT") }}
+        {{ csrf_field() }}
+
+        <h3>
+        <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
+      Nama &nbsp;&nbsp;<input type="text" name="namaSaldo" value="{{ $saldo->nama }}"/>
+      <br> Jenis &nbsp; &nbsp; <select name="jenis_master"> 
+        <input type="text" name="nominal" value="{{$saldo->nominal}}"/  >
+          </select><br>
+      
+      <div style = "text-align: center;">
+
+      <input type="submit" value="Simpan" name="submit"/>
+    </div>
+          </h3>
+    
+    </form>
+</div>
+
+    </div>
                 </div>
-				@endif
-                
-				@if(count($hasilSaldo)>0)
-                <h3 style = "color:white">
-				<table border="1">
-					<tr>
-						<th>No</th>
-						<th>Nama</th>
-						<th>Nominal</th>
-					</tr>
-					
-						@foreach ($hasilSaldo as $no=>$saldo)
-						<tr>
-							<td>{{ $no+1 }}</td>
-							<td>{{ $saldo->nama }}</td>
-							<td>{{ $saldo->nominal }}</td>
-                            <td><a href="{{url('saldos/'.$saldo->id.'/edit')}}" style="font-family: cursive;color: pink;">[ubah]</a>
-							<td colspan="2">
-							</form>
-							</td>
-						</tr>
-						@endforeach
-					@else
-						</table>
-						Saldomu belum ada tambah saldo yuk!
-                        <a href="{{ route('saldos.create') }}" style="color: white;">Tambah</a></h2>
-					@endif	
-				</table>
-                </h3>
-                </div>
-                </div>
-            </center>
             </div>
         </div>
     </div>
@@ -397,4 +383,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </body>
 
 </html>
+
 

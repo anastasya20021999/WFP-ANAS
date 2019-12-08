@@ -127,9 +127,16 @@
                     </div>
                     <div class="col-xl-6 col-md-6">
                         <div class="slider_info">
-                            <h3>Manage Your <br>
+                            <h3>
+                                Manage Your <br>
                                 Own Money <br>
-                                With Cuan Lover</h3>
+                                With Cuan Lover
+                                <br>
+                                @if(Auth::user())
+                                
+                                @endif
+                                </h3>
+                                
                             <a href="#" class="boxed_btn">Browse Our Courses</a>
                         </div>
                     </div>
