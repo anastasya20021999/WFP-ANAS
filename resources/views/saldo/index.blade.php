@@ -156,6 +156,12 @@
 							<td>{{ $saldo->nama }}</td>
 							<td>{{ $saldo->nominal }}</td>
                             <td><a href="{{url('saldos/'.$saldo->id.'/edit')}}" style="font-family: cursive;color: pink;">[ubah]</a>
+                            <form method="POST" action="{{url('saldos/'.$saldo->id)}}" id="form-hapus-{{ $saldo->id }}">
+						    <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
+                                {{method_field('DELETE')}}
+                                {{csrf_field()}}
+                                <a href="#" onclick="document.getElementById('form-hapus-{{ $saldo->id }}').submit()"
+                                style="font-family: cursive;color: pink;">[Hapus]</a>
 							<td colspan="2">
 							</form>
 							</td>
