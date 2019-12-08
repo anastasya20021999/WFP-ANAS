@@ -51,8 +51,8 @@
                                     <ul id="navigation">
                                         <li><a href="{{url('/')}}">home</a></li></li>
                                         @if (Auth::user()) 
-                                            <li><a href="{{ url('saldos') }}">Saldo</a></li>
-                                        <li><a href="{{ url('masters') }}"class="active">Master</a></li>
+                                            <li><a href="{{ url('saldos') }}" class="active">Saldo</a></li>
+                                        <li><a href="{{ url('masters') }}">Master</a></li>
                                         <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
                                         <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
@@ -97,6 +97,12 @@
                                 </ul>
                                 </li>
                                 @endif
+                                <!-- <div class="live_chat_btn">
+                                    <a class="boxed_btn_orange" href="#">
+                                        <i class="fa fa-phone"></i>
+                                        <span>+10 378 467 3672</span>
+                                    </a>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-12">
@@ -113,67 +119,45 @@
     <div class="slider_area ">
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
             <div class="container">
-
                 <div class="row align-items-center justify-content-center">
-                   <h1> 
-                       Daftar Master 
-                       <br>
-                       <a href="{{ url('masters/create')}}">[Tambah Master]</a>
-
-                    </h1>
-                    <br>
-                    <h4>@if (session('pesan'))
-                        <div style="color: white;
-                            font-weight: bold;">
-                            {{session('pesan')}}
-                        </div>
-                       @endif
-                    </h4>
-                </div>
-        @if(sizeof($hasilMaster)!=0)
-        <div class="container2">
-            <center>
-        <table border="1" style="font-family: cursive;color: pink;">
-            <tr>
-                <th>No</th>
-                <th>Id Master</th>
-                <th>Nama</th>
-                <th>Jenis</th>
-                <th>Aksi</th>
-            </tr>
-            
-                @foreach ($hasilMaster as $no=>$master)
-                <tr>
-                    <td>{{ $no+1 }}</td>
-                    <td>{{ $master->id }}</td>
-                    <td>{{ $master->nama }}</td>
-                    <td>{{ $master->jenis }}</td>
-                    <td><a href="{{url('masters/'.$master->id.'/edit')}}" style="font-family: cursive;color: pink;">[Ubah]</a>
-                    <form method="POST" action="{{url('masters/'.$master->id)}}" id="form-hapus-{{ $master->id }}">
-                        <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
-                    {{method_field('DELETE')}}
-                    {{csrf_field()}}
-                    <a href="#" onclick="document.getElementById('form-hapus-{{ $master->id }}').submit()"
-                        style="font-family: cursive;color: pink;">[Hapus]</a>
-                </form>
-                <a href="{{url('submasters/tambah')}}" style="font-family: cursive;color: pink;">[Tambah Submaster]</a></td>
-                </tr>
-
-                @endforeach
-               
-                </table>
-                </center>
-                </div>
-        @else
-        Data gaada
-        @endif  
+                  <h1>Tambah SubMaster</h1>
+<div class="container">
+  <center>
+<form method="post" action="{{url('submasters/tambah/proses')}}">
+  <table>
+    <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+    <input type="hidden" name="user" value="{{Auth::user()->id}}"/>
+    <tr>
+        <td><font face="Monospace" color="white"><strong style="font-size: 17px;">Master &nbsp;&nbsp;</strong></font></td> 
+        <td>
+        <select name="select_master"> 
+        @foreach($duar as $no => $d)
+        <option value="{{$d->id}}">{{$d->id}} - {{$d->nama}}</option>
+        @endforeach
+        </select>
+        </td>
+    </tr>
+    <tr>
+      <td><font face="Monospace" color="white"><strong style="font-size: 17px;">Nama &nbsp;&nbsp;</strong></font></td> 
+      <td><input type="text" name="nama_submaster" ></td>
+    </tr>
+    <tr>
+      <td><font face="Monospace" color="white" ><strong style="font-size: 17px;">Jenis Pembayaran &nbsp;&nbsp;</strong></font></td>
+      <td><input type="text" name="jenis_pembayaran"></td>
+    </tr>
+    
+  </table>
+  <input type="submit" style="font-family: monospace;" name="Simpan" value="Simpan"/>
+</form>
+</center>
+</div>
+</td>
+          
                 </div>
             </div>
         </div>
     </div>
-
-  
-
+    
     <!-- form itself end-->
     <form id="test-form" class="white-popup-block mfp-hide">
         <div class="popup_box ">

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Master;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use DB;
 
 class MasterController extends Controller
 {
@@ -119,5 +119,15 @@ class MasterController extends Controller
         $nama = $master->nama;
         $master->delete();
         return redirect()->route('masters.index',['user_id' => $request->get('user')])->with('pesan','data master dengan nama '.$nama.' sudah berhasil dihapus');
+    }
+
+    public function subMaster_data()
+    {
+         $duar = DB::table('masters')
+                ->select('submasters.nama')
+                ->join('submasters', 'masters.id','=','submasters.master_id')
+                ->get();
+        dd($duar);
+        return view('master/index',compact('duar'));
     }
 }

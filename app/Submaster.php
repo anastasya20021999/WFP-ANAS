@@ -16,4 +16,8 @@ class Submaster extends Model
     	//kategori tanpa s karena dia single
     	return $this->belongsTo('App\Master');
     }
+    public function tambahsub()
+    {
+    	//$namaMaster = $request->get()
+    }
 }
