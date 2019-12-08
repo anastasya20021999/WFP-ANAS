@@ -53,7 +53,7 @@
                                         @if (Auth::user()) 
                                             <li><a href="{{ url('saldos') }}">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
-                                        <li><a href="{{ url('transaksis') }}" >Transaksi</a></li>
+                                        <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
                                         <li><a href="{{ url('tabungans') }}"class="active">Tabungan</a></li>
                                         <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
@@ -114,65 +114,51 @@
     <div class="slider_area ">
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
             <div class="container">
-
+              <h1 style = "text-align: center;">Ubah Tabungan</h1>
                 <div class="row align-items-center justify-content-center">
-                    @if(count($errors->all()))
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>Sorry!! {{$error}}</li>
-                            @endforeach
-                        </ul>
-                    @endif                
-                    @if (session('pesan'))
-                    <div style="background-color: green; color: white;
-                        font-weight: bold;">
-                        {{session('pesan')}}
-                    </div>
-                    @endif
-                    <head></head>
-                    <body>
-                        <table border="1">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Nominal</th>
-                                <th>Target</th>
-                                <th>Status</th>
-                            </tr>
-                            @foreach($tabungans as $key => $tab)
-                            <tr>
-                                <td>
-                                    {{$key+1}}
-                                <td>
+  
+@foreach ($errors->all() as $error)
+  <div style="background-color: red; font-weight: bold;color: white;"><h4>{{ $error }}</h4></div>
+@endforeach
+@if (session('status'))
+  <div>
+    {{ session('status') }}
+  </div>
+@endif
 
-                                    {{$tab->nama}}
-                                </td>
-                                <td>{{$tab->nominal}}</td>
-                                <td>{{$tab->target}}</td>
-                                <td>
-                                    @if($tab->status==1)
-                                        Tercapai
-                                    @else
-                                        Belum
-                                    @endif
-                                </td>
-                                <td><a href="{{url('tabungans/'.$tab->id.'/edit')}}" style="font-family: cursive;color: pink;">[ubah]</a>
-                                <form method="POST" action="{{url('tabungans/'.$tab->id)}}" id="form-hapus-{{ $tab->id }}">
-                                    <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
-                                {{method_field('DELETE')}}
-                                {{csrf_field()}}
-                                <a href="#" onclick="document.getElementById('form-hapus-{{ $tab->id }}').submit()"
-                                    style="font-family: cursive;color: pink;">[Hapus]</a>
-                            </form></td>
-                            </tr>
-                            @endforeach
-                            <br>
-                            <h2>Ingin beli sesuatu? Nabung mangkanya sini tambah tabungan
-                                <br>
-                                <a href="{{ route('tabungans.create')}}">Tambah</a>
-                            </h2>
-                        </table>
-                    </body>
+<br>
+<div style="margin: center;">
+    <div class="container" >
+  
+    <form action="{{ route('tabungans.update', $tabungan->id) }}" method="POST">
+        {{ method_field("PUT") }}
+        {{ csrf_field() }}
+
+        <h3>
+        <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
+      <td><font face="Monospace" color="white"><strong style="font-size: 17px;">Nama &nbsp;&nbsp;</strong></font></td> 
+                          <td><input type="text" name="nama" value="{{$tabungan->nama}}"></td>
+                        </tr>
+                        <tr>
+                          <td><font face="Monospace" color="white"><strong style="font-size: 17px;">Target &nbsp;&nbsp;</strong></font></td> 
+                          <td><input type="text" name="target" value="{{$tabungan->target}}"></td>
+                        </tr>
+
+      
+      <div style = "text-align: center;">
+
+        <tr>
+            <td>
+                <input type="submit" value="Simpan" name="submit"/>
+            </td>
+        </tr>
+    </div>
+          </h3>
+    
+    </form>
+</div>
+
+    </div>
                 </div>
             </div>
         </div>
@@ -400,3 +386,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </body>
 
 </html>
+
+

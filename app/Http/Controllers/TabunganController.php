@@ -17,7 +17,7 @@ class TabunganController extends Controller
     {
         $tabungans=Tabungan::retrieve(Auth::user()->id);
         return view('tabungan.index',[
-        'tabungans'=>$tabungans]);
+        'tabungan'=>$tabungans]);
     }
 
     /**
