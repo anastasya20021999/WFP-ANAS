@@ -116,43 +116,63 @@
             <div class="container">
 
                 <div class="row align-items-center justify-content-center">
-						              
-					<head></head>
-					<body>
-						<table border="1">
-							<tr>
-								<th>No</th>
-								<th>Nama</th>
-								<th>Nominal</th>
-								<th>Target</th>
-								<th>Status</th>
-							</tr>
-							@foreach($tabungans as $key => $tab)
-							<tr>
-								<td>
-									{{$key+1}}
-								<td>
+                    @if(count($errors->all()))
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>Sorry!! {{$error}}</li>
+                            @endforeach
+                        </ul>
+                    @endif                
+                    @if (session('pesan'))
+                    <div style="background-color: green; color: white;
+                        font-weight: bold;">
+                        {{session('pesan')}}
+                    </div>
+                    @endif
+                    <head></head>
+                    <body>
+                        <table border="1">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Nominal</th>
+                                <th>Target</th>
+                                <th>Status</th>
+                            </tr>
+                            @foreach($tabungans as $key => $tab)
+                            <tr>
+                                <td>
+                                    {{$key+1}}
+                                <td>
 
-									{{$tab->nama}}
-								</td>
-								<td>{{$tab->nominal}}</td>
-								<td>{{$tab->target}}</td>
-								<td>
-									@if($tab->status==1)
-										Tercapai
-									@else
-										Belum
-									@endif
-								</td>
-							</tr>
-							@endforeach
-							<br>
-							<h2>Ingin beli sesuatu? Nabung mangkanya sini tambah tabungan
-								<br>
-								<a href="{{ route('tabungans.create')}}">Tambah</a>
-							</h2>
-						</table>
-					</body>
+                                    {{$tab->nama}}
+                                </td>
+                                <td>{{$tab->nominal}}</td>
+                                <td>{{$tab->target}}</td>
+                                <td>
+                                    @if($tab->status==1)
+                                        Tercapai
+                                    @else
+                                        Belum
+                                    @endif
+                                </td>
+                                <td><a href="{{url('tabungans/'.$tabungan->id.'/edit')}}" style="font-family: cursive;color: pink;">[ubah]</a>
+                                <form method="POST" action="{{url('tabungans/'.$tabungan->id)}}" id="form-hapus-{{ $tabungan->id }}">
+                                    <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
+                                {{method_field('DELETE')}}
+                                {{csrf_field()}}
+                                <a href="#" onclick="document.getElementById('form-hapus-{{ $tabungan->id }}').submit()"
+                                    style="font-family: cursive;color: pink;">[Hapus]</a>
+                            </form></td>
+                            </tr>
+                            @endforeach
+                            <br>
+                            <h2>Ingin beli sesuatu? Nabung mangkanya sini tambah tabungan
+                                <br>
+                                <a href="{{ route('tabungans.create')}}">Tambah</a>
+                            </h2>
+                        </table>
+                    </body>
                 </div>
             </div>
         </div>

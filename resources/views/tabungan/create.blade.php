@@ -53,8 +53,8 @@
                                         @if (Auth::user()) 
                                             <li><a href="{{ url('saldos') }}">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
-                                        <li><a href="{{ url('transaksis') }}" class="active">Transaksi</a></li>
-                                        <li><a href="{{ url('tabungans') }}">Tabungan</a></li>
+                                        <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
+                                        <li><a href="{{ url('tabungans') }}" class="active">Tabungan</a></li>
                                         <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
                                     </ul>
@@ -116,7 +116,13 @@
             <div class="container">
 
                 <div class="row align-items-center justify-content-center">
-						              
+                    @if(count($errors->all()))
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>Sorry!! {{$error}}</li>
+                            @endforeach
+                        </ul>
+                    @endif
 					<head></head>
 					<body>
 						<table border="1">
