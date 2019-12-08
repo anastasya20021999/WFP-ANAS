@@ -20,11 +20,16 @@ Auth::routes();
 Route::post('/regis', 'Auth\RegisterController@store');
 Route::resource('saldos','SaldoController');
 Route::resource('masters','MasterController');
+Route::get('submasters/tambah','SubmasterController@create');
+Route::post('submasters/tambahproses','SubmasterController@create');
 //halo
 Route::resource('transaksis','TransaksiController');
 Route::resource('tabungans','TabunganController');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/laporan', 'TransaksiController@laporan');
 Route::post('/tampil', 'TransaksiController@tampil');
+
