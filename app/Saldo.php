@@ -15,5 +15,11 @@ class Saldo extends Model
     {
     	//kategori tanpa s karena dia single
     	return $this->belongsTo('App\User');
-    }
+	}
+	
+	public static function hitungTotalSaldo($userid)
+	{
+		$total=$this->sum('nominal')->where('user_id','=',$userid);
+		return $total;
+	}
 }
