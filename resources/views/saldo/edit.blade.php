@@ -51,10 +51,7 @@
                                     <ul id="navigation">
                                         <li><a href="{{url('/')}}">home</a></li></li>
                                         @if (Auth::user()) 
-                                            <li><a href="{{ url('saldos') }}">Saldo</a></li>
-                                        <li><a href="{{ url('masters') }}">Master</a></li>
-                                        <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
-                                        <li><a href="{{ url('tabungans') }}" class="active">Tabungan</a></li>
+
                                         <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
                                     </ul>
@@ -114,7 +111,7 @@
     <div class="slider_area ">
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
             <div class="container">
-              <h1 style = "text-align: center;">Ubah Tabungan</h1>
+
                 <div class="row align-items-center justify-content-center">
   
 @foreach ($errors->all() as $error)
@@ -130,24 +127,13 @@
 <div style="margin: center;">
     <div class="container" >
   
-    <form action="{{ route('masters.update', $master->id) }}" method="POST">
+
         {{ method_field("PUT") }}
         {{ csrf_field() }}
 
         <h3>
         <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
-      <table>
-                
-                <tr>
-                    <td>Nama: </td>
-                    <td><input type="text" name="nama_saldo" value="{{ $tabugan->nama }}"/></td>
-                </tr>
-                <tr>
-                    <td>Nominal: </td>
-                    <td><input type="number" name="nominal" min="1" max="1000000000" value="{{ $tabugan->nominal }}"></td>
-                </tr>
-                
-            </table>
+
       
       <div style = "text-align: center;">
 
