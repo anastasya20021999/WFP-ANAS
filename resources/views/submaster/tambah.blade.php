@@ -123,7 +123,7 @@
                   <h1>Tambah SubMaster</h1>
 <div class="container">
   <center>
-<form method="post" action="{{url('submasters/tambah/proses')}}">
+<form method="post" action="{{url('submasters')}}">
   <table>
     <input type="hidden" name="_token" value="{{csrf_token()}}"/>
     <input type="hidden" name="user" value="{{Auth::user()->id}}"/>
