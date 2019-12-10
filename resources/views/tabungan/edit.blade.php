@@ -57,6 +57,7 @@
                                         <li><a href="{{ url('tabungans') }}"class="active">Tabungan</a></li>
                                         <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
+
                                     </ul>
                                 </nav>
                             </div>
@@ -75,7 +76,6 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"style="color: white;">
                                     {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>
-
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
                                         <a href="{{ route('logout')}}"

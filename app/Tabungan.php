@@ -39,36 +39,46 @@ class Tabungan extends Model
         $tabungan->updated_at=$current_date_time;
         $tabungan->save();
     } 
-    public static function updateTabungan($nama, $nominal, $target, $userid)
+    public static function updateTabungan($nama, $nominal, $target, $id, $userid)
     {
-        $tabungan=self::whereId($userid)->firstOrFail();
-        $hasil=$tabungan->nominal+$target;
-        if($tabungan->status=1)
+        $tabungan=self::whereId($id)->firstOrFail();
+
+        if($tabungan->status==1)
         {
+            $tabungan->nama=$nama;
+                //$tabungan->nominal=$nominal;
+                //$tabungan->target=$target;
+                $tabungan->user_id=$userid;
+                $tabungan->status=1;
+                $current_date_time = Carbon::now()->toDateTimeString();
+                $tabungan->updated_at=$current_date_time;
+                $tabungan->save();
             return "sudah tercapai tabungannya";
         }
         else
         {
-            if($hasil>$tabungan->target){
+            if ($target<$tabungan->nominal) {
                 $tabungan->nama=$nama;
-                $tabungan->nominal=$nominal;
+                //$tabungan->nominal=$nominal;
                 $tabungan->target=$target;
                 $tabungan->user_id=$userid;
                 $tabungan->status=1;
-                $tabungan->timestamps = false;
+                $current_date_time = Carbon::now()->toDateTimeString();
+                $tabungan->updated_at=$current_date_time;
                 $tabungan->save();
-                return "sudah tercapai tapi lebih ".($hasil-$tabungan->target);
+                return "nominal sudah memenuhi target, lebih:".($tabungan->nominal-$target);
             }
             else{
             //->nama kolom di db= objek yg suda dibuat
                 $tabungan->nama=$nama;
-                $tabungan->nominal=$nominal;
+                //$tabungan->nominal=$nominal;
                 $tabungan->target=$target;
                 $tabungan->user_id=$userid;
                 $tabungan->status=0;
-                $tabungan->timestamps = false;
+                $current_date_time = Carbon::now()->toDateTimeString();
+                $tabungan->updated_at=$current_date_time;
                 $tabungan->save();
-                return "berhasil update";
+                return "berhasil update,sisa nominal:".$tabungan->nominal;
             }
         }
     }

@@ -84,7 +84,7 @@ class TabunganController extends Controller
            'target'=>'required'
         ]);
 
-        $hasil=Tabungan::update($request->get('nama'),0,$request->get('target'), Auth::user()->id);
+        $hasil=Tabungan::updateTabungan($request->get('nama'),0,$request->get('target'), $id, Auth::user()->id);
         
         return redirect()->route('tabungans.index')->with('pesan',$hasil); 
     }

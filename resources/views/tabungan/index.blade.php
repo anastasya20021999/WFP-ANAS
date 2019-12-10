@@ -139,7 +139,7 @@
                                 <th>Target</th>
                                 <th>Status</th>
                             </tr>
-                            @foreach($tabungans as $key => $tab)
+                            @foreach($tabungan as $key => $tab)
                             <tr>
                                 <td>
                                     {{$key+1}}
