@@ -158,8 +158,14 @@
                     <a href="{{url('submasters/create')}}" style="font-family: cursive;color: pink;">[Tambah Submaster]</a></td>
                 </tr>
                 </form>
-                
+                 <center><th colspan="3" >Nama Submaster</th></center>
+                @foreach($master->submasters as $submaster)
+                <tr>
 
+                    <td colspan="3">{{$submaster->nama}}</td>
+                     <!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
+                 </tr>
+                @endforeach
                 @endforeach
                
                 </table>
