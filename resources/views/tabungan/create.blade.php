@@ -51,15 +51,10 @@
                                     <ul id="navigation">
                                         <li><a href="{{url('/')}}">home</a></li></li>
                                         @if (Auth::user()) 
-                                        <li><a href="{{ url('saldos') }}" class="active">Saldo</a></li>
+                                            <li><a href="{{ url('saldos') }}">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
                                         <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="{{asset('bootstrap/blog.html')}}">blog</a></li>
-                                                <li><a href="{{asset('bootstrap/single-blog.html')}}">single-blog</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="{{ url('tabungans') }}" class="active">Tabungan</a></li>
                                         <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
                                     </ul>
@@ -118,59 +113,41 @@
     <!-- slider_area_start -->
     <div class="slider_area ">
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
-            <div class = "container2">
-               
-                <div style = "margin : 10px 50px;  text-align:center;">
-				<h1 style="color:white;"> 
-					Daftar Saldo
-				</h1>
-                <h2 style="color:white;">Tambah saldomu?</h2>
-					<h2 style="color:white;"><a href="{{ route('saldos.create') }}">[Tambah]</a></h2>
-                </div>
-                <div style = color:white>
-                    <div class="row align-items justify-content-center">  
-            </div>
-            
             <div class="container">
 
-				@if (session('pesan'))
-				<div style="color: white;
-					font-weight: bold; text-align:center;">
-					{{session('pesan')}}
-                    
-                </div>
-				@endif
-                
-				@if(count($hasilSaldo)>0)
-                <h3 style = "color:white">
-				<table border="1">
-					<tr>
-						<th>No</th>
-						<th>Nama</th>
-						<th>Nominal</th>
-						<th>Aksi</th>
-					</tr>
-					
-						@foreach ($hasilSaldo as $no=>$saldo)
-						<tr>
-							<td>{{ $no+1 }}</td>
-							<td>{{ $saldo->nama }}</td>
-							<td>{{ $saldo->nominal }}</td>
-							<td colspan="2">
-							</form>
-							</td>
-						</tr>
-						@endforeach
-					@else
+                <div class="row align-items-center justify-content-center">
+                    @if(count($errors->all()))
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>Sorry!! {{$error}}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+					<head></head>
+					<body>
+						<table border="1">
+						<h1>Tambah Tabungan baru</h1>
+                    <div class="container">
+                      <center>
+                    <form method="post" action="{{url('tabungans')}}">
+                      <table>
+                        <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                        <input type="hidden" name="user" value="{{Auth::user()->id}}"/>
+                        <tr>
+                          <td><font face="Monospace" color="white"><strong style="font-size: 17px;">Nama &nbsp;&nbsp;</strong></font></td> 
+                          <td><input type="text" name="nama" ></td>
+                        </tr>
+                        <tr>
+                          <td><font face="Monospace" color="white"><strong style="font-size: 17px;">Target &nbsp;&nbsp;</strong></font></td> 
+                          <td><input type="text" name="target" ></td>
+                        </tr>
+                        <tr>
+                           <td><input type="submit" name="Simpan" value="Simpan"/></td>
+                        </tr>
+						</div>
 						</table>
-						Saldomu belum ada tambah saldo yuk!
-                        <a href="{{ route('saldos.create') }}" style="color: white;">Tambah</a></h2>
-					@endif	
-				</table>
-                </h3>
+					</body>
                 </div>
-                </div>
-            </center>
             </div>
         </div>
     </div>
@@ -397,4 +374,3 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </body>
 
 </html>
-

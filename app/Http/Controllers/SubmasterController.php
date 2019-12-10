@@ -36,7 +36,7 @@ class SubmasterController extends Controller
                 ->select('*')
                 ->get();
         
-        return view('submaster/tambah',compact('duar'));
+        return view('submaster.tambah',compact('duar'));
     }
 
     /**
@@ -47,17 +47,23 @@ class SubmasterController extends Controller
      */
     public function store(Request $request)
     {
-        $nama = $request->get('nama_submaster');
-        $jenis_pembayaran = $request->get('jenis_pembayaran');
-        $master_id = $request->get('select_master');
-
-        $tambahsub = Submaster::insert([
-            'nama' => $nama,
-            'pembayaran' => $jenis_pembayaran,
-            'master_id' => $master_id
+         $this->validate($request,[
+         'nama_submaster'=>'required',
+           'jenis_pembayaran'=>'required',
+           'select_master'=>'required'
         ]);
 
-        return redirect()->back();
+        $namaSub = $request->get('nama_submaster');
+        $jenisbayar = $request->get('jenis_pembayaran');
+        $master_id = $request->get('select_master');
+
+        $submaster = new Submaster();
+        $submaster->nama=$namaSub;
+        $submaster->pembayaran=$jenisbayar;
+        $submaster->master_id=$master_id;
+        $submaster->timestamps=false;
+        $submaster->save();
+        return redirect()->route('masters.index');
     }
 
     /**

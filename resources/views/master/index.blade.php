@@ -154,10 +154,11 @@
                     {{method_field('DELETE')}}
                     {{csrf_field()}}
                     <a href="#" onclick="document.getElementById('form-hapus-{{ $master->id }}').submit()"
-                        style="font-family: cursive;color: pink;">[Hapus]</a>
-                </form>
-                <a href="{{url('submasters/tambah')}}" style="font-family: cursive;color: pink;">[Tambah Submaster]</a></td>
+                        style="font-family: cursive;color: pink;">[Hapus]</a> <br>
+                    <a href="{{url('submasters/create')}}" style="font-family: cursive;color: pink;">[Tambah Submaster]</a></td>
                 </tr>
+                </form>
+                
 
                 @endforeach
                
