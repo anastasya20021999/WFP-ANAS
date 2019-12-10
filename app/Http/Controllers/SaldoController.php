@@ -25,7 +25,6 @@ class SaldoController extends Controller
             'user_id'=>Auth::user()->id
             //hasil kategori nama var yang akan dikenal di view
         ]);
-
     }
 
     /**

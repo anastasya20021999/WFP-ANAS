@@ -119,7 +119,7 @@
     <div class="slider_area ">
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
             <div class="container">
-              <h1 style = "text-align: center;">Ubah Master</h1>
+              <h1 style = "text-align: center;">Ubah Saldo</h1>
                 <div class="row align-items-center justify-content-center">
   
 @foreach ($errors->all() as $error)
