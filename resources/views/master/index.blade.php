@@ -159,11 +159,24 @@
                 </tr>
                 </form>
                  <center><th colspan="3" >Nama Submaster</th></center>
+                 <th>Jenis Pembayaran</th>
+                 <th>Aksi</th>
                 @foreach($master->submasters as $submaster)
                 <tr>
 
                     <td colspan="3">{{$submaster->nama}}</td>
                      <!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
+                     <td>{{$submaster->pembayaran}}</td>
+                     <td>
+                         <a href="{{url('submasters/'.$submaster->id.'/edit')}}" style="font-family: cursive;color: pink;">[Ubah]</a>
+                    <form method="POST" action="{{url('submasters/'.$submaster->id)}}" id="form-hapus-{{ $submaster->id }}">
+                        <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
+                    {{method_field('DELETE')}}
+                    <br>
+                    {{csrf_field()}}
+                    <a href="#" onclick="document.getElementById('form-hapus-{{ $submaster->id }}').submit()"
+                        style="font-family: cursive;color: pink;">[Hapus]</a>
+                     </td>
                  </tr>
                 @endforeach
                 @endforeach
@@ -181,66 +194,8 @@
 
   
 
-    <!-- form itself end-->
-    <form id="test-form" class="white-popup-block mfp-hide">
-        <div class="popup_box ">
-            <div class="popup_inner">
-                <div class="logo text-center">
-                    <a href="#">
-                        <img src="{{asset('bootstrap/img/logo1.png')}}" alt="">
-                    </a>
-                </div>
-                <h3>Sign in</h3>
-                <form action="#">
-                    <div class="row">
-                        <div class="col-xl-12 col-md-12">
-                            <input type="email" placeholder="Enter email">
-                        </div>
-                        <div class="col-xl-12 col-md-12">
-                            <input type="password" placeholder="Password">
-                        </div>
-                        <div class="col-xl-12">
-                            <button type="submit" class="boxed_btn_orange">Sign in</button>
-                        </div>
-                    </div>
-                </form>
-                <p class="doen_have_acc">Don’t have an account? <a class="dont-hav-acc" href="#test-form2">Sign Up</a>
-                </p>
-            </div>
-        </div>
-    </form>
-    <!-- form itself end -->
-
-    <!-- form itself end-->
-    <form id="test-form2" class="white-popup-block mfp-hide">
-        <div class="popup_box ">
-            <div class="popup_inner">
-                <div class="logo text-center">
-                    <a href="#">
-                        <img src="{{asset('bootstrap/img/logo1.png')}}" alt="">
-                    </a>
-                </div>
-                <h3>Resistration</h3>
-                <form action="#">
-                    <div class="row">
-                        <div class="col-xl-12 col-md-12">
-                            <input type="email" placeholder="Enter email">
-                        </div>
-                        <div class="col-xl-12 col-md-12">
-                            <input type="password" placeholder="Password">
-                        </div>
-                        <div class="col-xl-12 col-md-12">
-                            <input type="Password" placeholder="Confirm password">
-                        </div>
-                        <div class="col-xl-12">
-                            <button type="submit" class="boxed_btn_orange">Sign Up</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </form>
-    <!-- form itself end -->
+    
+    
 
 
     <!-- JS here -->
