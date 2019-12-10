@@ -53,17 +53,22 @@ class SubmasterController extends Controller
            'select_master'=>'required'
         ]);
 
+         // $submaster = new Submaster([
+         //    'nama'=>$request->get('nama_submaster'),
+         //    'pembayaran'=>$request->get('jenis_pembayaran')]);
+         // $master=Master::find($request->get('select_master'));
+         // $master->submasters()->save($submaster);
         $namaSub = $request->get('nama_submaster');
-        $jenisbayar = $request->get('jenis_pembayaran');
-        $master_id = $request->get('select_master');
-
+        $jenisbayar=$request->get('jenis_pembayaran');
+        $master_id=$request->get('select_master');
         $submaster = new Submaster();
         $submaster->nama=$namaSub;
         $submaster->pembayaran=$jenisbayar;
         $submaster->master_id=$master_id;
         $submaster->timestamps=false;
-        $submaster->save();
-        return redirect()->route('masters.index');
+        $master=Master::find($request->get('select_master'));
+        $master->submasters()->save($submaster);
+        return redirect()->route('masters.index')->with('pesan','selamat anda berhasil menambahkan submaster baru dengan nama '.$namaSub);
     }
 
     /**
