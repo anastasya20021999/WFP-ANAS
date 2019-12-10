@@ -21,4 +21,12 @@ class Master extends Model
     	//kategori tanpa s karena dia single
     	return $this->belongsTo('App\User');
     }
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($master) { // before delete() method call this
+             $master->submasters()->delete();
+             // do the rest of the cleanup...
+        });
+    }
 }

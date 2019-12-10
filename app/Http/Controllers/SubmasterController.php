@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Master;
 use App\Submaster;
+use Illuminate\Support\Facades\Auth;
 
 class SubmasterController extends Controller
 {
@@ -26,7 +27,7 @@ class SubmasterController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource.   
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,7 +35,9 @@ class SubmasterController extends Controller
     {
        $duar = DB::table('masters')
                 ->select('*')
+                ->where('user_id','=', Auth::user()->id)
                 ->get();
+
         
         return view('submaster.tambah',compact('duar'));
     }
@@ -90,7 +93,8 @@ class SubmasterController extends Controller
      */
     public function edit($id)
     {
-        //
+        $submaster = Submaster::find($id);
+        return view('submaster.edit',['submaster'=>$submaster]);
     }
 
     /**
@@ -102,7 +106,15 @@ class SubmasterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $submaster = Submaster::whereId($id)->firstOrFail();
+        //set data dari field form ke objek kategori
+        $submaster->nama = $request->get('nama_submaster');
+        $submaster->pembayaran = $request->get('jenis_pembayaran');
+        $submaster->timestamps = false;
+        $submaster->save();
+        
+        return redirect()->route('masters.index',['user_id' => $request->get('user')])->with('pesan','selamat anda berhasil merubah submaster dengan nama '. $request->get('nama_master'));
+
     }
 
     /**
@@ -111,8 +123,11 @@ class SubmasterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $submaster = Submaster::find($id);
+        $nama_submaster = $submaster->nama;
+        $submaster->delete();
+        return redirect()->route('masters.index',['user_id' => $request->get('user')])->with('pesan','data submaster dengan nama '.$nama_submaster.' sudah berhasil dihapus');
     }
 }

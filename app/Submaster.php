@@ -20,4 +20,5 @@ class Submaster extends Model
     {
     	//$namaMaster = $request->get()
     }
+    
 }

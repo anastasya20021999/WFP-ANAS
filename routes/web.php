@@ -26,9 +26,11 @@ Route::resource('transaksis','TransaksiController');
 Route::resource('tabungans','TabunganController');
 
 Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/submasters/{submaster}/create', 'SubmasterController@create');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/laporan', 'TransaksiController@laporan');
 Route::post('/tampil', 'TransaksiController@tampil');
+
 

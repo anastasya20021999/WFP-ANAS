@@ -115,7 +115,7 @@
             <div class="container">
 
                 <div class="row align-items-center justify-content-center">
-                   <h1> 
+                     <h1> 
                        Daftar Master 
                        <br>
                        <a href="{{ url('masters/create')}}">[Tambah Master]</a>
@@ -131,7 +131,6 @@
                     </h4>
                 </div>
         @if(sizeof($hasilMaster)!=0)
-        <div class="container2">
             <center>
         <table border="1" style="font-family: cursive;color: pink;">
             <tr>
@@ -169,14 +168,17 @@
                      <td>{{$submaster->pembayaran}}</td>
                      <td>
                          <a href="{{url('submasters/'.$submaster->id.'/edit')}}" style="font-family: cursive;color: pink;">[Ubah]</a>
+
                     <form method="POST" action="{{url('submasters/'.$submaster->id)}}" id="form-hapus-{{ $submaster->id }}">
                         <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
                     {{method_field('DELETE')}}
+
                     <br>
                     {{csrf_field()}}
                     <a href="#" onclick="document.getElementById('form-hapus-{{ $submaster->id }}').submit()"
                         style="font-family: cursive;color: pink;">[Hapus]</a>
                      </td>
+                 </form>
                  </tr>
                 @endforeach
                 @endforeach
@@ -187,10 +189,11 @@
         @else
         Data gaada
         @endif  
-                </div>
             </div>
         </div>
     </div>
+
+
 
   
 
