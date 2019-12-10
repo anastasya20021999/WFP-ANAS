@@ -39,6 +39,7 @@ class Tabungan extends Model
         $tabungan->updated_at=$current_date_time;
         $tabungan->save();
     } 
+
     public static function updateTabungan($nama, $nominal, $target, $id, $userid)
     {
         $tabungan=self::whereId($id)->firstOrFail();
@@ -81,6 +82,14 @@ class Tabungan extends Model
                 return "berhasil update,sisa nominal:".$tabungan->nominal;
             }
         }
+
     }
+    public static function hapus($id)
+    {
+        $tabungan = self::find($id);
+        $tabungan->delete();
+        return 'data tabungan dengan nama '.$tabungan->nama.' sudah berhasil dihapus';
+    }
+    
 } 
 

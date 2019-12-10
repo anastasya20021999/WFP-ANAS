@@ -97,6 +97,7 @@ class TabunganController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $hasil=Tabungan::hapus($id);
+        return redirect()->route('tabungans.index')->with('pesan',$hasil); 
     }
 }
