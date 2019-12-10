@@ -194,14 +194,24 @@
                     @else
                         </table>
                         Transaksimu belum ada tambah transaksi yuk!
-                    @endif  
+                    @endif
                 </table>
+                
                 </h3>
+                
             </div>
                 </div>
             </div>
+            
+            
+        
+            
+            
         </div>
     </div>
+
+    <div id='chartPengeluaran'>
+                </div>
     <!-- slider_area_end -->
 
     <!-- about_area_start -->
@@ -392,9 +402,56 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </form>
     <!-- form itself end -->
-
-
+    @section('footer')
+            <script src="https://code.highcharts.com/highcharts.js"></script>  
+            <script>
+            Highcharts.chart('chartPengeluaran', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Pengeluaran'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: {
+                categories: [
+                    'Jan',
+                    'Feb',
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Rainfall (mm)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Tokyo',
+                data: [49.9, 71.5]
+            }]
+        });
+        </script>
+        @stop
+                                
     <!-- JS here -->
+    
     <script src="{{asset('bootstrap/js/vendor/modernizr-3.5.0.min.js')}}"></script>
     <script src="{{asset('bootstrap/js/vendor/jquery-1.12.4.min.js')}}"></script>
     <script src="{{asset('bootstrap/js/popper.min.js')}}"></script>
@@ -422,6 +479,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{asset('bootstrap/js/mail-script.js')}}"></script>
 
     <script src="{{asset('bootstrap/js/main.js')}}"></script>
+    @yield('footer')
 </body>
 
 </html>
