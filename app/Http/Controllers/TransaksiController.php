@@ -300,13 +300,15 @@ class TransaksiController extends Controller
         ->select(DB::raw('sum(t.jumlah) as jumlah, m.nama as namamaster, sm.nama as namasubmaster'))
         ->where('t.user_id', Auth::User()->id)
         ->where('m.jenis', "Pemasukkan")
+        ->groupBy('jumlah','namamaster','namasubmaster')
         ->get();
 
-    
-        dd($pemasukkan);
+        $grafik[] = ['Nama Master dan Submaster', 'Nominal'];
 
-
-
+        foreach($pemasukkan as $index => $p)
+        {
+            $grafik[++$index] = [$p->namamaster."--".$p->namasubmaster, $p->jumlah];
+        }
 
 
 
@@ -316,7 +318,78 @@ class TransaksiController extends Controller
 
     public function trendpemasukanfilter(Request $request)
     {
+         $pemasukkan = DB::table('transaksis as t')
+        ->join('masters as m', 'm.id','=', 't.master_id')
+        ->join('submasters as sm', 'sm.master_id', '=', 'm.id')
+        ->select(DB::raw('sum(t.jumlah) as jumlah, m.nama as namamaster, sm.nama as namasubmaster'))
+        ->where('t.user_id', Auth::User()->id)
+        ->where('m.jenis', "Pemasukkan")
+       ->whereBetween('created_at',[$request->tanggalawal, $request->tanggalakhir])
+        ->groupBy('jumlah','namamaster','namasubmaster')
+        ->get();
 
+        $grafik[] = ['Nama Master dan Submaster', 'Nominal'];
+
+        foreach($pemasukkan as $index => $p)
+        {
+            $grafik[++$index] = [$p->namamaster."--".$p->namasubmaster, $p->jumlah];
+        }
+
+
+
+         return view('laporan.trendpemasukan')->with('grafik', json_encode($grafik));
+    }
+
+
+
+    public function trendpengeluaran(Request $request)
+    {
+        $pengeluaran = DB::table('transaksis as t')
+        ->join('masters as m', 'm.id','=', 't.master_id')
+        ->join('submasters as sm', 'sm.master_id', '=', 'm.id')
+        ->select(DB::raw('sum(t.jumlah) as jumlah, m.nama as namamaster, sm.nama as namasubmaster'))
+        ->where('t.user_id', Auth::User()->id)
+        ->where('m.jenis', "Pengeluaran")
+       // ->whereBetween('created_at',[$request->tanggalawal, $request->tanggalakhir])
+        ->groupBy('jumlah','namamaster','namasubmaster')
+        ->get();
+
+
+
+        $grafik[] = ['Nama Master dan Submaster', 'Nominal'];
+
+        foreach($pengeluaran as $index => $p)
+        {
+            $grafik[++$index] = [$p->namamaster."--".$p->namasubmaster, $p->jumlah];
+        }
+
+
+
+         return view('laporan.trendpengeluaran')->with('grafik', json_encode($grafik));
+    }
+
+    public function trendpengeluaranfilter(Request $request)
+    {
+                $pengeluaran = DB::table('transaksis as t')
+        ->join('masters as m', 'm.id','=', 't.master_id')
+        ->join('submasters as sm', 'sm.master_id', '=', 'm.id')
+        ->select(DB::raw('sum(t.jumlah) as jumlah, m.nama as namamaster, sm.nama as namasubmaster'))
+        ->where('t.user_id', Auth::User()->id)
+        ->where('m.jenis', "Pengeluaran")
+       ->whereBetween('created_at',[$request->tanggalawal, $request->tanggalakhir])
+        ->groupBy('jumlah','namamaster','namasubmaster')
+        ->get();
+
+        $grafik[] = ['Nama Master dan Submaster', 'Nominal'];
+
+        foreach($pengeluaran as $index => $p)
+        {
+            $grafik[++$index] = [$p->namamaster."--".$p->namasubmaster, $p->jumlah];
+        }
+
+
+
+         return view('laporan.trendpengeluaran')->with('grafik', json_encode($grafik));
     }
 
 }

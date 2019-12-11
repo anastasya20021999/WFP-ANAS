@@ -42,6 +42,8 @@ Route::get('/rasiopemasukanpengeluaran', 'TransaksiController@grafikpemasukanpen
 Route::get('/rasiopemasukanpengeluaran/filter', 'TransaksiController@grafikpemasukanpengeluaranfilter');
 Route::get('/trendpemasukan', 'TransaksiController@trendpemasukan');
 Route::get('/trendpemasukan/filter', 'TransaksiController@trendpemasukanfilter');
+Route::get('/trendpengeluaran', 'TransaksiController@trendpengeluaran');
+Route::get('/trendpengeluaran/filter', 'TransaksiController@trendpengeluaranfilter');
 
 
 
