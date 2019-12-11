@@ -137,9 +137,11 @@
 						<th>Jumlah</th>
 						<th>Keterangan</th>
 						<th>Saldo</th>
-						<th>Jenis Trasaksi</th>
+						<th>Jenis Transaksi</th>
 						<th>Nama Transaksi</th>
+                        <th>Nama Subtransaksi</th>
 						<th>Gambar</th>
+                        <th>Status</th>
 					</tr>
 					
 						@foreach ($hasilTransaksi as $no=>$transaksi)
@@ -159,9 +161,32 @@
 								<td>{{$master->nama}}</td>
 								<!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
 								@endif
-							@endforeach
-									<td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
-							
+                            @endforeach
+                                
+                                @if($transaksi->submaster_id==null)
+                                    <td>No Sub Transaksi</td>
+                                @else
+                                @foreach($hasilMaster as $master)
+                                    @foreach($master->submasters as $sub)
+                                    @if($transaksi->master_id==$sub->master_id)
+                                    <td>{{$sub->nama}}</td>    
+                                    @endif
+                                    @endforeach
+                                @endforeach 
+                                <!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
+                                @endif
+
+                            
+								<td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
+							                         
+                                <td><a href="{{url('transaksis/'.$transaksi->id.'/edit')}}" style="font-family: cursive;color: pink;">[ubah]</a>
+                                <form method="POST" action="{{url('transaksis/'.$transaksi->id)}}" id="form-hapus-{{ $transaksi->id }}">
+                                    <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
+                                {{method_field('DELETE')}}
+                                {{csrf_field()}}
+                                <a href="#" onclick="document.getElementById('form-hapus-{{ $transaksi->id }}').submit()"
+                                    style="font-family: cursive;color: pink;">[Hapus]</a>
+                                </form></td>
 							</td>
 						</tr>
 						@endforeach

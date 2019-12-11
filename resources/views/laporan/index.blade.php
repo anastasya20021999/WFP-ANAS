@@ -381,7 +381,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                         <img src="{{asset('bootstrap/img/logo1.png')}}" alt="">
                     </a>
                 </div>
-                <h3>Resistration</h3>
+                <h3>Registration</h3>
                 <form action="#">
                     <div class="row">
                         <div class="col-xl-12 col-md-12">
@@ -402,50 +402,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </form>
     <!-- form itself end -->
-    @section('footer')
-            <script src="https://code.highcharts.com/highcharts.js"></script>  
-            <script>
-            Highcharts.chart('chartPengeluaran', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Pengeluaran'
-            },
-            subtitle: {
-                text: 'Source: WorldClimate.com'
-            },
-            xAxis: {
-                categories: {{json_encode($categories)}},
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Rainfall (mm)'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Nominal',
-                data: [49.9, 71.5]
-            }]
-        });
-        </script>
-        @stop
+   
                                 
     <!-- JS here -->
     

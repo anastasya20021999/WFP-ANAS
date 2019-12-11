@@ -61,6 +61,7 @@ class SubmasterController extends Controller
          //    'pembayaran'=>$request->get('jenis_pembayaran')]);
          // $master=Master::find($request->get('select_master'));
          // $master->submasters()->save($submaster);
+
         $namaSub = $request->get('nama_submaster');
         $jenisbayar=$request->get('jenis_pembayaran');
         $master_id=$request->get('select_master');
@@ -97,6 +98,11 @@ class SubmasterController extends Controller
         return view('submaster.edit',['submaster'=>$submaster]);
     }
 
+    public function tampil(Request $request)
+    {
+        $submaster = Submaster::where('master_id', $request->get('id'));
+        return response()->json($submaster);
+    }
     /**
      * Update the specified resource in storage.
      *

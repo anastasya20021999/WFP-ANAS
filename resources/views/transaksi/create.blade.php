@@ -10,27 +10,38 @@
       <td><select name="jenis_saldo">
       @if(count($hasilSaldo)>0)
 	      	@foreach($hasilSaldo as $saldo)
-				@if($saldo->user_id==Auth::user()->id)
+				  @if($saldo->user_id==Auth::user()->id)
 				 <option value="{{$saldo->id}}">{{$saldo->nama}}</option>
-				@endif
-			@endforeach
-		else
+				  @endif
+			   @endforeach
+		  else
 			Saldomu Belum ada tambah dlu saldomu
-		@endif
+	   	@endif
       </select></td>
     </tr>
      <tr>
-      <td>Master</td>
-      <td><select name="jenis_master">
-      	@if(count($hasilMaster)>0)
-	      	@foreach($hasilMaster as $master)
-				@if($master->user_id==Auth::user()->id)
-				 <option value="{{$master->id}}">{{$master->nama}}</option>
-				@endif
-			@endforeach
-		else
-			Mastermu Belum ada tambah dlu mastermu
-		@endif
+      <td>Transaksi</td>
+      <td><select name="jenis_master" class="show-submaster">
+      	 @if(count($hasilMaster)>0 || count($hasilTabungan)>0)
+	      	  @foreach($hasilMaster as $master)
+      				@if($master->user_id==Auth::user()->id)
+      				 <option value="{{$master->id}}">{{$master->nama}}({{$master->jenis}})</option>
+      				@endif
+            @endforeach
+		     else
+			       Mastermu/Tabunganmu Belum ada tambah dlu mastermu/tabunganmu
+	       @endif
+
+      </select></td>
+      <td><select name="jenis_submaster" id="jenis_submaster">
+        <option value="none">Tidak pakai submaster</option>
+      @foreach($hasilMaster as $master)
+          @if($master->user_id==Auth::user()->id)
+              @foreach($master->submasters as $submaster)
+              <option value="{{$submaster->id}}">{{$submaster->nama}}({{$master->nama}})</option>
+              @endforeach
+          @endif
+      @endforeach
       </select></td>
     </tr>
     <tr>
