@@ -137,8 +137,9 @@
 						<th>Jumlah</th>
 						<th>Keterangan</th>
 						<th>Saldo</th>
-						<th>Jenis Trasaksi</th>
+						<th>Jenis Transaksi</th>
 						<th>Nama Transaksi</th>
+                        <th>Nama Subtransaksi</th>
 						<th>Gambar</th>
 					</tr>
 					
@@ -159,7 +160,23 @@
 								<td>{{$master->nama}}</td>
 								<!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
 								@endif
-							@endforeach
+                            @endforeach
+                                
+                                @if($transaksi->submaster_id==null)
+                                    <td>No Sub Transaksi</td>
+                                @else
+                                @foreach($hasilMaster as $master)
+                                    @foreach($master->submasters as $sub)
+                                    @if($transaksi->master_id==$sub->master_id)
+                                    <td>{{$sub->nama}}</td>    
+                                    @endif
+                                    @endforeach
+                                @endforeach 
+                                <!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
+                                @endif
+							
+
+                            
 									<td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
 							
 							</td>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Transaksi;
 use App\Saldo;
 use App\Master;
+use App\Tabungan;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
