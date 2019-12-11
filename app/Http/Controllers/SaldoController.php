@@ -72,7 +72,7 @@ class SaldoController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -83,7 +83,8 @@ class SaldoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $saldo = Saldo::find($id);
+        return view('saldo.edit',['saldo'=>$saldo]);
     }
 
     /**
@@ -95,7 +96,12 @@ class SaldoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $saldo = Saldo::whereId($id)->firstOrFail();
+        $saldo->nama = $request->get('namaSaldo');
+        $saldo->nominal = $request->get('nominal');
+        $saldo->timestamps =false;
+        $saldo->save();
+        return redirect()->route('saldos.index',['user_id' => $request->get('user')])->with('pesan','selamat anda berhasil merubah saldo dengan nama '. $request->get('namaSaldo'));
     }
 
     /**
@@ -106,6 +112,10 @@ class SaldoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $saldo = Saldo::find($id);
+        $saldo->user_id=$request->get('user');
+        $nama = $saldo->nama;
+        $saldo->delete();
+        return redirect()->route('saldos.index',['user_id' => $request->get('user')])->with('pesan','data saldo dengan nama '.$nama.' sudah berhasil dihapus');
     }
 }
