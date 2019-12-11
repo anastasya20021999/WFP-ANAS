@@ -234,7 +234,14 @@ class TransaksiController extends Controller
 
 
 
-    public function grafikpemasukanpengeluaran(Request $request)
+
+
+
+
+
+
+
+     public function grafikpemasukanpengeluaran(Request $request)
     {
          $pemasukkan = DB::table('transaksis as t')
         ->join('masters as m', 't.master_id','=', 'm.id')
@@ -391,5 +398,11 @@ class TransaksiController extends Controller
 
          return view('laporan.trendpengeluaran')->with('grafik', json_encode($grafik));
     }
+
+
+
+
+
+   
 
 }

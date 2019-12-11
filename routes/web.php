@@ -38,13 +38,6 @@ Route::get('/laporan', 'TransaksiController@chartX');
 
 
 
-Route::get('/rasiopemasukanpengeluaran', 'TransaksiController@grafikpemasukanpengeluaran');
-Route::get('/rasiopemasukanpengeluaran/filter', 'TransaksiController@grafikpemasukanpengeluaranfilter');
-Route::get('/trendpemasukan', 'TransaksiController@trendpemasukan');
-Route::get('/trendpemasukan/filter', 'TransaksiController@trendpemasukanfilter');
-Route::get('/trendpengeluaran', 'TransaksiController@trendpengeluaran');
-Route::get('/trendpengeluaran/filter', 'TransaksiController@trendpengeluaranfilter');
-
 
 
 
@@ -82,3 +75,19 @@ Route::get('/trendpengeluaran/filter', 'TransaksiController@trendpengeluaranfilt
 
 
 Route::post('changeOption', 'SubmasterController@tampil');
+
+
+
+
+
+
+
+
+
+Route::get('/rasiopemasukanpengeluaran', 'TransaksiController@grafikpemasukanpengeluaran');
+Route::get('/rasiopemasukanpengeluaran/filter', 'TransaksiController@grafikpemasukanpengeluaranfilter');
+Route::get('/trendpemasukan', 'TransaksiController@trendpemasukan');
+Route::get('/trendpemasukan/filter', 'TransaksiController@trendpemasukanfilter');
+Route::get('/trendpengeluaran', 'TransaksiController@trendpengeluaran');
+Route::get('/trendpengeluaran/filter', 'TransaksiController@trendpengeluaranfilter');
+
