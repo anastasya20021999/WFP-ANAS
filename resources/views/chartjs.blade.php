@@ -12,12 +12,11 @@
    }
   </style>
   <script type="text/javascript">
-   var analytics = <?php echo strval($master_id); ?>
+   var analytics = <?php echo $data; ?>
 
    google.charts.load('current', {'packages':['corechart']});
 
    google.charts.setOnLoadCallback(drawChart);
-
    function drawChart()
    {
     var data = google.visualization.arrayToDataTable(analytics);

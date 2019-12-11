@@ -89,30 +89,28 @@ class TransaksiController extends Controller
 
 
 
-    public function chartX($id){
-        $master = Master::find($id);
-        $user = User::find($id);
+    // public function chartX($id){
+    //     $master = Master::find($id);
+    //     $user = User::find($id);
         
-        $categories = [];
+    //     $categories = [];
 
-        foreach($master as $ms)
-        {
-            $categories[] = $ms->nama;
-        }
-        return view ('laporan.index',['user'=>$user,'master'=>$master]);
-    }
+    //     foreach($master as $ms)
+    //     {
+    //         $categories[] = $ms->nama;
+    //     }
+    //     return view ('laporan.index',['user'=>$user,'master'=>$master]);
+    // }
 
     public function chartjs()
     {
         $data = DB::table('transaksis')
                             ->select(
-                                DB::raw('master_id as master_id'),
-                                DB::raw('sum(jumlah) as quantity'))
+                                DB::raw('sum(jumlah) as quantity'),'master_id')
                             ->groupBy('master_id')
                             ->get();
 
      
-        // dd($data);
         $array[] = ['master_id', 'quantity'];
         foreach($data as $key => $value)
         {
@@ -121,7 +119,7 @@ class TransaksiController extends Controller
        
        // dd($viewer);
 
-        return view('chartjs')->with('transaksis',json_encode($array));
+        return view('chartjs')->with('data',json_encode($array));
     }
     /**
      * Show the form for creating a new resource.
