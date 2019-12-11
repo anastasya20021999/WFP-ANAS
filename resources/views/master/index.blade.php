@@ -54,12 +54,7 @@
                                             <li><a href="{{ url('saldos') }}">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}"class="active">Master</a></li>
                                         <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="{{asset('bootstrap/blog.html')}}">blog</a></li>
-                                                <li><a href="{{asset('bootstrap/single-blog.html')}}">single-blog</a></li>
-                                            </ul>
-                                        </li>
+                                         <li><a href="{{ url('tabungans') }}">Tabungan</a></li>
                                         <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
                                     </ul>
@@ -112,7 +107,11 @@
     <!-- slider_area_start -->
     <div class="slider_area ">
         <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
-            <div class="container">
+           
+        </div>
+    </div>
+        
+         <div class="container" style="margin-top:15%;">
 
                 <div class="row align-items-center justify-content-center">
                      <h1> 
@@ -129,10 +128,11 @@
                         </div>
                        @endif
                     </h4>
+
                 </div>
-        @if(sizeof($hasilMaster)!=0)
-            <center>
-        <table border="1" style="font-family: cursive;color: pink;">
+                @if(sizeof($hasilMaster)!=0)
+                 <center>
+        <table border="1" style="font-family: cursive;color: pink;" class="table">
             <tr>
                 <th>No</th>
                 <th>Id Master</th>
@@ -190,8 +190,7 @@
         Data gaada
         @endif  
             </div>
-        </div>
-    </div>
+
 
 
 

@@ -54,12 +54,7 @@
                                         <li><a href="{{ url('saldos') }}">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
                                         <li><a href="{{ url('transaksis') }}" class="active">Transaksi</a></li>
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="{{asset('bootstrap/blog.html')}}">blog</a></li>
-                                                <li><a href="{{asset('bootstrap/single-blog.html')}}">single-blog</a></li>
-                                            </ul>
-                                        </li>
+                                         <li><a href="{{ url('tabungans') }}">Tabungan</a></li>
                                         <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
                                     </ul>
@@ -137,9 +132,10 @@
 						<th>Jumlah</th>
 						<th>Keterangan</th>
 						<th>Saldo</th>
-						<th>Jenis Trasaksi</th>
+						<th>Jenis Transaksi</th>
 						<th>Nama Transaksi</th>
 						<th>Gambar</th>
+                        <th>Aksi</th>
 					</tr>
 					
 						@foreach ($hasilTransaksi as $no=>$transaksi)
@@ -163,6 +159,18 @@
 									<td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
 							
 							</td>
+                            <td>
+                                 <a href="{{url('transaksis/'.$transaksi->id.'/edit')}}" style="font-family: cursive;color: pink;">[Ubah]</a>
+
+                    <form method="POST" action="{{url('transaksis/'.$transaksi->id)}}" id="form-hapus-{{ $transaksi->id }}">
+                        <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
+                    {{method_field('DELETE')}}
+
+                    <br>
+                    {{csrf_field()}}
+                    <a href="#" onclick="document.getElementById('form-hapus-{{ $transaksi->id }}').submit()"
+                        style="font-family: cursive;color: pink;">[Hapus]</a>
+                            </td>
 						</tr>
 						@endforeach
 					@else

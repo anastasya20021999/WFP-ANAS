@@ -54,12 +54,7 @@
                                         <li><a href="{{ url('saldos') }}" class="active">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
                                         <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="{{asset('bootstrap/blog.html')}}">blog</a></li>
-                                                <li><a href="{{asset('bootstrap/single-blog.html')}}">single-blog</a></li>
-                                            </ul>
-                                        </li>
+                                         <li><a href="{{ url('tabungans') }}">Tabungan</a></li>
                                         <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
                                     </ul>

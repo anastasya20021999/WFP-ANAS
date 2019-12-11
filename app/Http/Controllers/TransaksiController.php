@@ -71,17 +71,17 @@ class TransaksiController extends Controller
         ]);
     }
     
-    //INI BUAT CHART!!!!!!!!!!!!
-    // public function hitung()
-    // {       
-    //     $table_transaksi = DB::table('transaksis')
-    //                         ->select * DB::raw('SUM(jumlah) as quantity')
-    //                         ->join('masters', 'transaksis.master_id','=','masters.master_id')
-    //                         ->groupBy('master_id')
-    //                         ->get();
+    // INI BUAT CHART!!!!!!!!!!!!
+    public function hitung()
+    {       
+        $table_transaksi = DB::table('transaksis')
+                            ->select * DB::raw('SUM(jumlah) as quantity')
+                            ->join('masters', 'transaksis.master_id','=','masters.master_id')
+                            ->groupBy('master_id')
+                            ->get();
 
-    //     return view('laporan/index', compact('table_transaksi'));                    
-    // }
+        return view('laporan/index', compact('table_transaksi'));                    
+    }
 
     /**
      * Show the form for creating a new resource.
