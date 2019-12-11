@@ -416,10 +416,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                 text: 'Source: WorldClimate.com'
             },
             xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                ],
+                categories: {{json_encode($categories)}},
                 crosshair: true
             },
             yAxis: {
@@ -443,7 +440,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                 }
             },
             series: [{
-                name: 'Tokyo',
+                name: 'Nominal',
                 data: [49.9, 71.5]
             }]
         });

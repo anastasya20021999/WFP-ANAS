@@ -157,14 +157,24 @@
 							<td>{{ $saldo->nama }}</td>
 							<td>{{ $saldo->nominal }}</td>
 							<td colspan="2">
+                            <td><a href="{{url('saldos/'.$saldo->id.'/edit')}}" style="font-family: cursive;color: pink;">[Ubah]</a>
+                            <form method="POST" action="{{url('saldos/'.$saldo->id)}}" id="form-hapus-{{ $saldo->id }}">
+						    <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
+                                {{method_field('DELETE')}}
+                                {{csrf_field()}}
+                                <a href="#" onclick="document.getElementById('form-hapus-{{ $saldo->id }}').submit()"
+                                style="font-family: cursive;color: pink;">[Hapus]</a>
 							</form>
 							</td>
+
 						</tr>
 						@endforeach
 					@else
+
 						</table>
 						Saldomu belum ada tambah saldo yuk!
                         <a href="{{ route('saldos.create') }}" style="color: white;">Tambah</a></h2>
+                        
 					@endif	
 				</table>
                 </h3>
