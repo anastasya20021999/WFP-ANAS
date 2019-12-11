@@ -91,17 +91,17 @@ class TransaksiController extends Controller
 
 
 
-    public function chartX($id){
-        $master = Master::find($id);
-        $user = User::find($id);
+    public function chartX(){
+        // $master = Master::find($id);
+        // $user = User::find($id);
         
-        $categories = [];
+        // $categories = [];
 
-        foreach($master as $ms)
-        {
-            $categories[] = $ms->nama;
-        }
-        return view ('laporan.index',['user'=>$user,'master'=>$master]);
+        // foreach($master as $ms)
+        // {
+        //     $categories[] = $ms->nama;
+        // }
+        return view ('laporan.index');
     }
 
     /**
@@ -236,4 +236,92 @@ class TransaksiController extends Controller
         $transaksi->delete();
         return redirect()->route('transaksis.index',['user_id' => $request->get('user')])->with('pesan','data transaksi dengan keterangan '.$nama_transaksi.' sudah berhasil dihapus');
     }
+
+
+
+    public function grafikpemasukanpengeluaran(Request $request)
+    {
+         $pemasukkan = DB::table('transaksis as t')
+        ->join('masters as m', 't.master_id','=', 'm.id')
+        ->where('m.jenis', "Pemasukkan")
+        ->where('t.user_id', Auth::User()->id)
+        // ->whereBetween('created_at',[$request->tanggalawal, $request->tanggalakhir])
+        ->sum('t.jumlah');
+
+
+        $pengeluaran = DB::table('transaksis as t')
+        ->join('masters as m', 't.master_id','=', 'm.id')
+        ->where('m.jenis', "Pengeluaran")
+        ->where('t.user_id', Auth::User()->id)
+        // ->whereBetween('created_at',[$request->tanggalawal, $request->tanggalakhir])
+        ->sum('t.jumlah');
+
+        // dd($pengeluaran);
+
+        $grafik[] = ['Jenis Transaksi', 'Nominal'];
+        $grafik[1] = ["Pemasukkan", $pemasukkan];
+        $grafik[2] = ["Pengeluaran", $pengeluaran];
+
+
+        return view('laporan.rasiopemasukanpengeluaran')->with('grafik', json_encode($grafik));
+    }
+
+     public function grafikpemasukanpengeluaranfilter(Request $request)
+    {
+
+        $pemasukkan = DB::table('transaksis as t')
+        ->join('masters as m', 't.master_id','=', 'm.id')
+        ->where('m.jenis', "Pemasukkan")
+        ->where('t.user_id', Auth::User()->id)
+        ->whereBetween('created_at',[$request->tanggalawal, $request->tanggalakhir])
+        ->sum('t.jumlah');
+
+
+          $pengeluaran = DB::table('transaksis as t')
+        ->join('masters as m', 't.master_id','=', 'm.id')
+        ->where('m.jenis', "Pengeluaran")
+        ->where('t.user_id', Auth::User()->id)
+        ->whereBetween('created_at',[$request->tanggalawal, $request->tanggalakhir])
+        ->sum('t.jumlah');
+
+
+
+     $grafik[] = ['Jenis Transaksi', 'Nominal'];
+        $grafik[1] = ["Pemasukkan", $pemasukkan];
+        $grafik[2] = ["Pengeluaran", $pengeluaran];
+
+
+        return view('laporan.rasiopemasukanpengeluaran')->with('grafik', json_encode($grafik));
+    }
+
+    public function trendpemasukan(Request $request)
+    {   
+
+
+
+        $pemasukkan = DB::table('transaksis as t')
+        ->join('masters as m', 'm.id','=', 't.master_id')
+        ->join('submasters as sm', 'sm.master_id', '=', 'm.id')
+        ->select(DB::raw('sum(t.jumlah) as jumlah, m.nama as namamaster, sm.nama as namasubmaster'))
+        ->where('t.user_id', Auth::User()->id)
+        ->where('m.jenis', "Pemasukkan")
+        ->get();
+
+    
+        dd($pemasukkan);
+
+
+
+
+
+
+         return view('laporan.trendpemasukan')->with('grafik', json_encode($grafik));
+
+    }
+
+    public function trendpemasukanfilter(Request $request)
+    {
+
+    }
+
 }
