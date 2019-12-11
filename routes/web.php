@@ -79,4 +79,4 @@ Route::get('/trendpemasukan/filter', 'TransaksiController@trendpemasukanfilter')
 
 
 
-Route::post('/changeOption', 'SubmasterController@tampil');
+Route::post('changeOption', 'SubmasterController@tampil');

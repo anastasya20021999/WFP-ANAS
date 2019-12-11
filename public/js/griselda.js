@@ -8,14 +8,23 @@ $('.show-submaster').change(function(){
     	//alert(master_id);
 	    $.ajax({
             type: 'POST',
-            url: "{{ URL::route('/changeOption') }}",
+            url: 'changeOption'
             data: {
             	'_token': $('input[name=_token]').val(),
-                'id': master_id
+                'id': master_id,
             },
-            success: function(data) {
-            	$('#jenis_submaster').append('<option value="foo" selected="selected">Foo</option>');
-                alert(data);
+            success: function(dataResult) {
+            	var resultData = dataResult.data;
+            	alert(resultData.id);
+            	if((dataResult.errors))
+            	{
+            		alert(dataResult.errors);
+            	}
+            	else
+            	{
+            		alert(resultData.name);
+            		$('#jenis_submaster').append('option value='+resultData.id+'>'+resultData.name+'</option>');
+            	}
             },
         });
     }
