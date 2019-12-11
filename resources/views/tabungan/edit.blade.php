@@ -54,8 +54,14 @@
                                             <li><a href="{{ url('saldos') }}">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
                                         <li><a href="{{ url('transaksis') }}">Transaksi</a></li>
-                                        <li><a href="{{ url('tabungans') }}"class="active">Tabungan</a></li>
-                                        <li><a href="{{ url('laporan') }}">Laporan</a></li>
+                                        <li><a href="{{ url('tabungans') }}">Tabungan</a></li>
+                                        <li><a href="#">Laporan <i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="{{url('rasiopemasukanpengeluaran')}}">Rasio Pemasukan Pengeluaran</a></li>
+                                                <li><a href="{{url('trendpemasukan')}}">Trend Pemasukan</a></li>
+                                                <li><a href="{{url('trendpengeluaran')}}">Trend Pengeluaran</a></li>
+                                            </ul>
+                                        </li>
                                         @endif
 
                                     </ul>
