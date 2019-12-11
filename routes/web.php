@@ -35,4 +35,4 @@ Route::post('/tampil', 'TransaksiController@tampil');
 
 Route::get('/laporan', 'TransaksiController@chartX');
 
-
+Route::get('chartjs', 'TransaksiController@chartjs');

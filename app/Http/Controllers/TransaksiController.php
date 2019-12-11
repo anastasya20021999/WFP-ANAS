@@ -102,6 +102,27 @@ class TransaksiController extends Controller
         return view ('laporan.index',['user'=>$user,'master'=>$master]);
     }
 
+    public function chartjs()
+    {
+        $data = DB::table('transaksis')
+                            ->select(
+                                DB::raw('master_id as master_id'),
+                                DB::raw('sum(jumlah) as quantity'))
+                            ->groupBy('master_id')
+                            ->get();
+
+     
+        // dd($data);
+        $array[] = ['master_id', 'quantity'];
+        foreach($data as $key => $value)
+        {
+            $array[++$key]= [$value->master_id, $value->quantity];
+        }
+       
+       // dd($viewer);
+
+        return view('chartjs')->with('transaksis',json_encode($array));
+    }
     /**
      * Show the form for creating a new resource.
      *
