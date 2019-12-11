@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Transaksi;
 use App\Saldo;
 use App\Master;
-use App\Tabungan;
 use DB;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
@@ -112,11 +112,11 @@ class TransaksiController extends Controller
     {
         $dataSaldo=Saldo::where('user_id',Auth::user()->id)->get();
         $dataMaster=Master::where('user_id',Auth::user()->id)->get();
-        $dataTabungan=Tabungan::where('user_id',Auth::user()->id)->get();
+        //$dataTabungan=Tabungan::where('user_id',Auth::user()->id)->get();
         return view('transaksi.create',[
             'hasilMaster'=>$dataMaster,
-            'hasilSaldo'=>$dataSaldo,
-            'hasilTabungan'=>$dataTabungan
+            'hasilSaldo'=>$dataSaldo
+           // 'hasilTabungan'=>$dataTabungan
         ]);
     }
 
@@ -132,39 +132,57 @@ class TransaksiController extends Controller
         $keterangan=$request->get('keterangan_transaksi');
         $namaSaldo=$request->get('jenis_saldo');
         $namaMaster=$request->get('jenis_master');
+        $namaSubmaster=$request->get('jenis_submaster');
+
 
         $uploadedFile=$request->file('image');
         $tujuanupload = 'data_file';
         //$path=$uploadedFile->store('public/files');
 
         $uploadedFile->move($tujuanupload,$uploadedFile->getClientOriginalName());
+        $hasilMaster=Master::whereId($namaMaster)->firstOrFail();
+            if ($hasilMaster->jenis=="pengeluaran") {
+                $dataSaldo=Saldo::where('id',$namaSaldo)->get();
+                $nominal = $dataSaldo[0]->nominal-$jumlah;
+                $saldo = Saldo::whereId($namaSaldo)->firstOrFail();
+                //set data dari field form ke objek kategori
+                $saldo->nominal = $nominal;
+                $saldo->timestamps = false;
+                $saldo->save();
 
-        $dataSaldo=Saldo::where('id',$namaSaldo)->get();
-        $nominal = $dataSaldo[0]->nominal-$jumlah;
-        $saldo = Saldo::whereId($namaSaldo)->firstOrFail();
-        //set data dari field form ke objek kategori
-        $saldo->nominal = $nominal;
-        $saldo->timestamps = false;
-        $saldo->save();
+                $dataSaldo->update =([ //updateing to myroutes table
+                'nominal' => $nominal
+                ]); 
+            }
+            else
+            {
+                $dataSaldo=Saldo::where('id',$namaSaldo)->get();
+                $nominal = $dataSaldo[0]->nominal+$jumlah;
+                $saldo = Saldo::whereId($namaSaldo)->firstOrFail();
+                //set data dari field form ke objek kategori
+                $saldo->nominal = $nominal;
+                $saldo->timestamps = false;
+                $saldo->save();
 
-        $dataMaster=Master::where('id',$namaMaster)->get();
-        
-
-        $dataSaldo->update =([ //updateing to myroutes table
-        'nominal' => $nominal
-        ]); 
-
-        $transaksi=new Transaksi();
-        //->nama kolom di db= objek yg suda dibuat
-        $transaksi->jumlah=$jumlah;
-        $transaksi->keterangan=$keterangan;
-        $transaksi->master_id=$namaMaster;
-        $transaksi->saldo_id=$namaSaldo;
-        $transaksi->nama_gambar=$request->title ?? $uploadedFile->getClientOriginalName();
-        $transaksi->user_id=Auth::user()->id;
-        $transaksi->timestamps = false;
-        $transaksi->save();
-
+                $dataSaldo->update =([ //updateing to myroutes table
+                'nominal' => $nominal
+                ]); 
+            }
+            $transaksi=new Transaksi();
+            $transaksi->jumlah=$jumlah;
+            $transaksi->keterangan=$keterangan;
+            $transaksi->master_id=$namaMaster;
+            $transaksi->saldo_id=$namaSaldo;
+            $transaksi->nama_gambar=$request->title ?? $uploadedFile->getClientOriginalName();
+            $transaksi->user_id=Auth::user()->id;
+            $current_date_time = Carbon::now()->toDateTimeString();
+            $transaksi->updated_at=$current_date_time;
+            $transaksi->created_at = $current_date_time;
+            if($namaSubmaster!="none"){
+            $transaksi->submaster_id=$namaSubmaster;
+            }
+            $transaksi->save();
+     
         return redirect()->route('transaksis.index')->with('pesan','selamat berhasil input transaksi '); //balek lagi ke halaman ini
     }
 

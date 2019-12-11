@@ -70,4 +70,4 @@ Route::get('/laporan', 'TransaksiController@chartX');
 
 
 
-Route::post('/changeOption', 'SubmasterController@tampil');
+Route::post('changeOption', 'SubmasterController@tampil');
