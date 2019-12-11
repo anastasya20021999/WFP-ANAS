@@ -74,14 +74,30 @@ class TransaksiController extends Controller
     //INI BUAT CHART!!!!!!!!!!!!
     // public function hitung()
     // {       
-    //     $table_transaksi = DB::table('transaksis')
+    //     $quantity = DB::table('transaksis')
     //                         ->select * DB::raw('SUM(jumlah) as quantity')
     //                         ->join('masters', 'transaksis.master_id','=','masters.master_id')
     //                         ->groupBy('master_id')
     //                         ->get();
-
-    //     return view('laporan/index', compact('table_transaksi'));                    
+        
+        
+    //     return view('laporan/index', 
+    //     ['quantity'=>$quantity, 
+    //     'user_id'=>Auth::user()->id]);                    
     // }
+
+    public function chartX($id){
+        $master = Master::find($id);
+        $user = User::find($id);
+        
+        $categories = [];
+
+        foreach($master as $ms)
+        {
+            $categories[] = $ms->nama;
+        }
+        return view ('laporan.index',['user'=>$user,'master'=>$master]);
+    }
 
     /**
      * Show the form for creating a new resource.
