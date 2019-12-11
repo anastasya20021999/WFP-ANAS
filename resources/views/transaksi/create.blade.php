@@ -25,25 +25,22 @@
       	 @if(count($hasilMaster)>0 || count($hasilTabungan)>0)
 	      	  @foreach($hasilMaster as $master)
       				@if($master->user_id==Auth::user()->id)
-      				 <option value="M{{$master->id}}">{{$master->nama}}({{$master->jenis}})</option>
+      				 <option value="{{$master->id}}">{{$master->nama}}({{$master->jenis}})</option>
       				@endif
-            @endforeach
-            @foreach($hasilTabungan as $tabungan)
-              @if($tabungan->user_id==Auth::user()->id)
-               <option value="T{{$tabungan->id}}">{{$tabungan->nama}}(tabungan)</option>
-              @endif
             @endforeach
 		     else
 			       Mastermu/Tabunganmu Belum ada tambah dlu mastermu/tabunganmu
 	       @endif
 
       </select></td>
-      <td><select name="jenis_submaster">
+      <td><select name="jenis_submaster" id="jenis_submaster">
         <option value="none">Tidak pakai submaster</option>
       @foreach($hasilMaster as $master)
+          @if($master->user_id==Auth::user()->id)
               @foreach($master->submasters as $submaster)
-              <option value="{{$submaster->id}}">{{$submaster->nama}}</option>
+              <option value="{{$submaster->id}}">{{$submaster->nama}}({{$master->nama}})</option>
               @endforeach
+          @endif
       @endforeach
       </select></td>
     </tr>
@@ -73,6 +70,3 @@
   </table>
   <input type="submit" name="Simpan" value="Simpan"/>
 </form>
-
-<script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
-<script src="{{asset('js/griselda.js')}}"></script>

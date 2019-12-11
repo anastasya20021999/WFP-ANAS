@@ -54,13 +54,14 @@
                                         <li><a href="{{ url('saldos') }}">Saldo</a></li>
                                         <li><a href="{{ url('masters') }}">Master</a></li>
                                         <li><a href="{{ url('transaksis') }}" class="active">Transaksi</a></li>
-                                        <li><a href="#">blog <i class="ti-angle-down"></i></a>
+                                       <li><a href="{{ url('tabungans') }}">Tabungan</a></li>
+                                        <li><a href="#">Laporan <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
-                                                <li><a href="{{asset('bootstrap/blog.html')}}">blog</a></li>
-                                                <li><a href="{{asset('bootstrap/single-blog.html')}}">single-blog</a></li>
+                                                <li><a href="{{url('rasiopemasukanpengeluaran')}}">Rasio Pemasukan Pengeluaran</a></li>
+                                                <li><a href="{{url('trendpemasukan')}}">Trend Pemasukan</a></li>
+                                                <li><a href="{{url('trendpengeluaran')}}">Trend Pengeluaran</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="{{ url('laporan') }}">Laporan</a></li>
                                         @endif
                                     </ul>
                                 </nav>
@@ -137,9 +138,11 @@
 						<th>Jumlah</th>
 						<th>Keterangan</th>
 						<th>Saldo</th>
-						<th>Jenis Trasaksi</th>
+						<th>Jenis Transaksi</th>
 						<th>Nama Transaksi</th>
+                        <th>Nama Subtransaksi</th>
 						<th>Gambar</th>
+                        <th>Status</th>
 					</tr>
 					
 						@foreach ($hasilTransaksi as $no=>$transaksi)
@@ -159,9 +162,32 @@
 								<td>{{$master->nama}}</td>
 								<!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
 								@endif
-							@endforeach
-									<td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
-							
+                            @endforeach
+                                
+                                @if($transaksi->submaster_id==null)
+                                    <td>No Sub Transaksi</td>
+                                @else
+                                @foreach($hasilMaster as $master)
+                                    @foreach($master->submasters as $sub)
+                                    @if($transaksi->master_id==$sub->master_id)
+                                    <td>{{$sub->nama}}</td>    
+                                    @endif
+                                    @endforeach
+                                @endforeach 
+                                <!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
+                                @endif
+
+                            
+								<td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
+							                         
+                                <td><a href="{{url('transaksis/'.$transaksi->id.'/edit')}}" style="font-family: cursive;color: pink;">[ubah]</a>
+                                <form method="POST" action="{{url('transaksis/'.$transaksi->id)}}" id="form-hapus-{{ $transaksi->id }}">
+                                    <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
+                                {{method_field('DELETE')}}
+                                {{csrf_field()}}
+                                <a href="#" onclick="document.getElementById('form-hapus-{{ $transaksi->id }}').submit()"
+                                    style="font-family: cursive;color: pink;">[Hapus]</a>
+                                </form></td>
 							</td>
 						</tr>
 						@endforeach
