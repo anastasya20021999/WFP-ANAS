@@ -156,7 +156,7 @@
                                         Belum
                                     @endif
                                 </td>
-                                <td><a href="{{url('tabungans/'.$tab->id.'/edit')}}" style="font-family: cursive;color: pink;">[ubah]</a>
+                                <td><a href="{{url('tabungans/'.$tab->id.'/edit')}}" style="font-family: cursive;color: pink;">[Nabung]</a>
                                 <form method="POST" action="{{url('tabungans/'.$tab->id)}}" id="form-hapus-{{ $tab->id }}">
                                     <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
                                 {{method_field('DELETE')}}
