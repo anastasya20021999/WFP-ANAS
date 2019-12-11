@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Transaksi;
 use App\Saldo;
 use App\Master;
+use App\Tabungan;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -111,9 +112,11 @@ class TransaksiController extends Controller
     {
         $dataSaldo=Saldo::where('user_id',Auth::user()->id)->get();
         $dataMaster=Master::where('user_id',Auth::user()->id)->get();
+        $dataTabungan=Tabungan::where('user_id',Auth::user()->id)->get();
         return view('transaksi.create',[
             'hasilMaster'=>$dataMaster,
-            'hasilSaldo'=>$dataSaldo
+            'hasilSaldo'=>$dataSaldo,
+            'hasilTabungan'=>$dataTabungan
         ]);
     }
 

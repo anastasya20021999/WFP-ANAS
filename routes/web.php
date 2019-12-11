@@ -36,3 +36,38 @@ Route::post('/tampil', 'TransaksiController@tampil');
 Route::get('/laporan', 'TransaksiController@chartX');
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::post('/changeOption', 'SubmasterController@tampil');

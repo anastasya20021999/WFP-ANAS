@@ -97,6 +97,11 @@ class SubmasterController extends Controller
         return view('submaster.edit',['submaster'=>$submaster]);
     }
 
+    public function tampil(Request $request)
+    {
+        $submaster = Submaster::where('master_id', $request->get('id'))->get();
+        echo $submaster;
+    }
     /**
      * Update the specified resource in storage.
      *

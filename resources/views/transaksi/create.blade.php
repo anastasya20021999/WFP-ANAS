@@ -10,27 +10,41 @@
       <td><select name="jenis_saldo">
       @if(count($hasilSaldo)>0)
 	      	@foreach($hasilSaldo as $saldo)
-				@if($saldo->user_id==Auth::user()->id)
+				  @if($saldo->user_id==Auth::user()->id)
 				 <option value="{{$saldo->id}}">{{$saldo->nama}}</option>
-				@endif
-			@endforeach
-		else
+				  @endif
+			   @endforeach
+		  else
 			Saldomu Belum ada tambah dlu saldomu
-		@endif
+	   	@endif
       </select></td>
     </tr>
      <tr>
-      <td>Master</td>
-      <td><select name="jenis_master">
-      	@if(count($hasilMaster)>0)
-	      	@foreach($hasilMaster as $master)
-				@if($master->user_id==Auth::user()->id)
-				 <option value="{{$master->id}}">{{$master->nama}}</option>
-				@endif
-			@endforeach
-		else
-			Mastermu Belum ada tambah dlu mastermu
-		@endif
+      <td>Transaksi</td>
+      <td><select name="jenis_master" class="show-submaster">
+      	 @if(count($hasilMaster)>0 || count($hasilTabungan)>0)
+	      	  @foreach($hasilMaster as $master)
+      				@if($master->user_id==Auth::user()->id)
+      				 <option value="M{{$master->id}}">{{$master->nama}}({{$master->jenis}})</option>
+      				@endif
+            @endforeach
+            @foreach($hasilTabungan as $tabungan)
+              @if($tabungan->user_id==Auth::user()->id)
+               <option value="T{{$tabungan->id}}">{{$tabungan->nama}}(tabungan)</option>
+              @endif
+            @endforeach
+		     else
+			       Mastermu/Tabunganmu Belum ada tambah dlu mastermu/tabunganmu
+	       @endif
+
+      </select></td>
+      <td><select name="jenis_submaster">
+        <option value="none">Tidak pakai submaster</option>
+      @foreach($hasilMaster as $master)
+              @foreach($master->submasters as $submaster)
+              <option value="{{$submaster->id}}">{{$submaster->nama}}</option>
+              @endforeach
+      @endforeach
       </select></td>
     </tr>
     <tr>
@@ -59,3 +73,6 @@
   </table>
   <input type="submit" name="Simpan" value="Simpan"/>
 </form>
+
+<script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+<script src="{{asset('js/griselda.js')}}"></script>
