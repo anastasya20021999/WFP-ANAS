@@ -141,6 +141,7 @@
 						<th>Nama Transaksi</th>
                         <th>Nama Subtransaksi</th>
 						<th>Gambar</th>
+                        <th>Status</th>
 					</tr>
 					
 						@foreach ($hasilTransaksi as $no=>$transaksi)
@@ -174,11 +175,18 @@
                                 @endforeach 
                                 <!-- sudah dapet objek barang tinggal ambil yg mau ditampilin-->
                                 @endif
-							
 
                             
-									<td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
-							
+								<td><img width="150px" src="{{url('/data_file/'.$transaksi->nama_gambar)}}"></td>
+							                         
+                                <td><a href="{{url('transaksis/'.$transaksi->id.'/edit')}}" style="font-family: cursive;color: pink;">[ubah]</a>
+                                <form method="POST" action="{{url('transaksis/'.$transaksi->id)}}" id="form-hapus-{{ $transaksi->id }}">
+                                    <input type="hidden" name="user" value= "{{Auth::user()->id}}"/>
+                                {{method_field('DELETE')}}
+                                {{csrf_field()}}
+                                <a href="#" onclick="document.getElementById('form-hapus-{{ $transaksi->id }}').submit()"
+                                    style="font-family: cursive;color: pink;">[Hapus]</a>
+                                </form></td>
 							</td>
 						</tr>
 						@endforeach

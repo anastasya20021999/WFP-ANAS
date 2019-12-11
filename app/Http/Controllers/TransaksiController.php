@@ -206,7 +206,8 @@ class TransaksiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $transaksi = Transaksi::find($id);
+        return view('transaksis.edit',['transaksi'=>$transaksi]);
     }
 
     /**
@@ -218,7 +219,7 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
@@ -227,8 +228,12 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        
+        $transaksi = Transaksi::find($id);
+        $nama_transaksi = $transaksi->keterangan;
+        $transaksi->delete();
+        return redirect()->route('transaksis.index',['user_id' => $request->get('user')])->with('pesan','data transaksi dengan keterangan '.$nama_transaksi.' sudah berhasil dihapus');
     }
 }
