@@ -71,6 +71,7 @@ class TransaksiController extends Controller
         ]);
     }
     
+
     //INI BUAT CHART!!!!!!!!!!!!
     // public function hitung()
     // {       
@@ -85,6 +86,8 @@ class TransaksiController extends Controller
     //     ['quantity'=>$quantity, 
     //     'user_id'=>Auth::user()->id]);                    
     // }
+
+
 
     public function chartX($id){
         $master = Master::find($id);
